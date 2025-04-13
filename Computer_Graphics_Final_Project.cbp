@@ -48,8 +48,10 @@
 		<Unit filename="functions/drawCloud.cpp" />
 		<Unit filename="functions/drawHouse.cpp" />
 		<Unit filename="functions/drawLake.cpp" />
+		<Unit filename="functions/drawMoon.cpp" />
 		<Unit filename="functions/drawPlan.cpp" />
 		<Unit filename="functions/drawPondInfrontofSriti.cpp" />
+		<Unit filename="functions/drawStalls.cpp" />
 		<Unit filename="functions/drawSteps.cpp" />
 		<Unit filename="functions/drawSun.cpp" />
 		<Unit filename="functions/drawTree.cpp" />

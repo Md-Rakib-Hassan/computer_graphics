@@ -878,7 +878,7 @@
 
 1744562739 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawplan.cpp
 
-1744560034 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawsun.cpp
+1744563480 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawsun.cpp
 	<GL/glut.h>
 	<math.h>
 
@@ -887,7 +887,7 @@
 
 1744562739 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawtree.cpp
 
-1744562401 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawbuilding.cpp
+1744564135 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawbuilding.cpp
 	<GL/glut.h>
 	<math.h>
 
@@ -905,7 +905,7 @@
 	<GL/glut.h>
 	<math.h>
 
-1744563453 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\main.cpp
+1744570691 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\main.cpp
 	<GL/glut.h>
 	<math.h>
 	<stdlib.h>
@@ -928,5 +928,13 @@
 1526093420 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\pthread_time.h
 	<sys/timeb.h>
 
-1744563444 c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\include\draw.h
+1744569174 c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\include\draw.h
+
+1744568447 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawstalls.cpp
+	<GL/glut.h>
+	<math.h>
+
+1744568203 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawmoon.cpp
+	<GL/glut.h>
+	<cmath>
 

@@ -8,6 +8,15 @@
 #define WINDOW_HEIGHT 600
 #define SKY_START_Y 350
 #define GROUND_TOP_Y SKY_START_Y
+#define MAX_RAINDROPS 500
+
+typedef struct {
+	float x, y;
+	float speed;
+}Raindrop;
+
+Raindrop raindrops[MAX_RAINDROPS];
+int rainActive = 0;
 
 void init()
 {
@@ -28,7 +37,6 @@ void drawLine(float x1, float y1, float x2, float y2)
 
 void drawFilledTriangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b)
 {
-    // Filled triangle
     glColor3f(r, g, b);
     glBegin(GL_TRIANGLES);
         glVertex2f(x1, y1);
@@ -36,9 +44,8 @@ void drawFilledTriangle(float x1, float y1, float x2, float y2, float x3, float 
         glVertex2f(x3, y3);
     glEnd();
 
-    // Border
-    glColor3f(0.0f, 0.0f, 0.0f);  // Black border
-    glLineWidth(1.0f);           // Thickness of the border
+    glColor3f(0.0f, 0.0f, 0.0f);  
+    glLineWidth(1.0f);           
     glBegin(GL_LINE_LOOP);
         glVertex2f(x1, y1);
         glVertex2f(x2, y2);
@@ -60,6 +67,7 @@ void drawCircle(float cx, float cy, float r, float red, float green, float blue)
     }
     glEnd();
 }
+
 
 void drawStreetLamp(float x1, float y1, float height)
 {
@@ -187,91 +195,38 @@ void drawFlower(float cx, float cy)
     }
 }
 
-void drawStalls() {
-    // First roof shape
-    glColor3f(0.2f, 0.6f, 0.9f);
-    glBegin(GL_POLYGON);
-    glVertex2f(-50, 50);
-    glVertex2f(0, -0);
-    glVertex2f(200, 130);
-    glVertex2f(130, 140);
-    glEnd();
 
-    glColor3f(0.0f, 0.0f, 0.0f);  // Border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(-50, 50);
-    glVertex2f(0, -0);
-    glVertex2f(200, 130);
-    glVertex2f(130, 140);
-    glEnd();
+void initRain() {
+    for (int i = 0; i < MAX_RAINDROPS; i++) {
+        raindrops[i].x = rand() % WINDOW_WIDTH;
+        raindrops[i].y = rand() % WINDOW_HEIGHT;
+        raindrops[i].speed = 1 + rand() % 4;  // Random speed between 1 and 4
+    }
+    rainActive = 1;  // Start the rain
+}
 
-    // Second structure
-    glColor3f(0.75f, 0.72f, 0.04f);
-    glBegin(GL_POLYGON);
-    glVertex2f(0, 0);
-    glVertex2f(200, 130);
-    glVertex2f(200, 90);
-    glVertex2f(70, 0);
-    glEnd();
+void updateRain() {
+    for (int i = 0; i < MAX_RAINDROPS; i++) {
+        raindrops[i].y -= raindrops[i].speed;  // Move raindrop down
+        if (raindrops[i].y < 0) {
+            // Reset raindrop to the top of the screen with a new random x position
+            raindrops[i].x = rand() % WINDOW_WIDTH;
+            raindrops[i].y = WINDOW_HEIGHT + rand() % 100;
+            raindrops[i].speed = 1 + rand() % 4;  // New random speed
+        }
+    }
+}
 
-    glColor3f(0.0f, 0.0f, 0.0f);  // Border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(0, 0);
-    glVertex2f(200, 130);
-    glVertex2f(200, 90);
-    glVertex2f(70, 0);
-    glEnd();
-
-    // Door or window on stall
-    glColor3f(0.78f, 0.25f, 0.02f);
-    glBegin(GL_POLYGON);
-    glVertex2f(90, 60);
-    glVertex2f(110, 70);
-    glVertex2f(115, 30);
-    glVertex2f(95, 20);
-    glEnd();
-
-    glColor3f(0.0f, 0.0f, 0.0f);  // Border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(90, 60);
-    glVertex2f(110, 70);
-    glVertex2f(115, 30);
-    glVertex2f(95, 20);
-    glEnd();
-
-    // Right-side extended box
-    glColor3f(0.78f, 0.25f, 0.02f);
-    glBegin(GL_QUADS);
-    glVertex2f(200, 130);
-    glVertex2f(230, 120);
-    glVertex2f(260, 150);
-    glVertex2f(250, 160);
-    glEnd();
-
-    glColor3f(0.0f, 0.0f, 0.0f);  // Border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(200, 130);
-    glVertex2f(230, 120);
-    glVertex2f(260, 150);
-    glVertex2f(250, 160);
-    glEnd();
-
-    // Background banner or backdrop
-    glColor3f(0.2f, 0.6f, 0.9f);
-    glBegin(GL_QUADS);
-    glVertex2f(190, 120);
-    glVertex2f(120, 130);
-    glVertex2f(300, 220);
-    glVertex2f(280, 220);
-    glEnd();
-
-    glColor3f(0.0f, 0.0f, 0.0f);  // Border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(190, 120);
-    glVertex2f(120, 130);
-    glVertex2f(300, 220);
-    glVertex2f(280, 220);
-    glEnd();
+void drawRain() {
+    if (rainActive) {
+        glColor3f(0.0f, 0.0f, 1.0f);  // Blue color for raindrops
+        for (int i = 0; i < MAX_RAINDROPS; i++) {
+            glBegin(GL_LINES);
+                glVertex2f(raindrops[i].x, raindrops[i].y);
+                glVertex2f(raindrops[i].x, raindrops[i].y - 10);  // Line for raindrop
+            glEnd();
+        }
+    }
 }
 
 
@@ -306,7 +261,7 @@ void drawBackground()
     drawFilledTriangle(690, 350, 770, 510, 850, 350, 0.4f, 0.3f, 0.2f);
     drawFilledTriangle(640, 350, 715, 460, 790, 350, 0.5f, 0.4f, 0.3f);
 
-    float bx = 20;
+    float bx = 75;
     for (int i = 0; i < 6; ++i)
     {
         float bw = 30 + rand() % 20;
@@ -319,60 +274,11 @@ void drawBackground()
     drawMetroPillars();
     drawMetroTrack();
     drawRiverAndLake();
-    drawStalls();
+    drawStalls(0, 0);
     drawHouse(750, 300, 0.75, 0.5);
     drawSun(550, 550, 30);
+	drawMoon(400, 550, 30);
 
-}
-
-void drawSmallAirplane(float x, float y)
-{
-    // Body
-    glColor3f(1.0f, 1.0f, 1.0f); // white
-    glBegin(GL_POLYGON);
-    glVertex2f(x, y);
-    glVertex2f(x + 50, y + 6);
-    glVertex2f(x + 50, y - 6);
-    glVertex2f(x, y - 6);
-    glEnd();
-
-    // Tail fin
-    glColor3f(0.6f, 0.6f, 0.6f); // grey
-    glBegin(GL_TRIANGLES);
-    glVertex2f(x + 10, y);
-    glVertex2f(x, y + 10);
-    glVertex2f(x, y - 10);
-    glEnd();
-
-    // Top wing
-    glColor3f(0.7f, 0.7f, 0.9f);
-    glBegin(GL_TRIANGLES);
-    glVertex2f(x + 25, y);
-    glVertex2f(x + 10, y + 20);
-    glVertex2f(x + 35, y + 20);
-    glEnd();
-
-    // Bottom wing
-    glColor3f(0.7f, 0.7f, 0.9f);
-    glBegin(GL_TRIANGLES);
-    glVertex2f(x + 25, y);
-    glVertex2f(x + 10, y - 20);
-    glVertex2f(x + 35, y - 20);
-    glEnd();
-
-    // Windows (cockpit style)
-    glColor3f(0.2f, 0.6f, 1.0f); // blue
-    for (int i = 0; i < 3; i++)
-    {
-        float winX = x + 15 + i * 8;
-        float winY = y + 2;
-        glBegin(GL_POLYGON);
-        glVertex2f(winX, winY);
-        glVertex2f(winX + 5, winY);
-        glVertex2f(winX + 5, winY - 4);
-        glVertex2f(winX, winY - 4);
-        glEnd();
-    }
 }
 
 
@@ -440,10 +346,8 @@ void display()
     glClear(GL_COLOR_BUFFER_BIT);
     drawBackground();
     drawSritiShoudhoWithFilledShapes();
-    drawSmallAirplane(600, 500);
     drawCar(150, 350);
     drawCar(100, 280);
-    //drawTrain(100, 200);
 
     for (int i = 0; i < 20; i++)
     {
@@ -453,8 +357,30 @@ void display()
     {
         drawTree(600 + i * 10, 220 - i * 10);
     }
+
+	updateRain();
+	drawRain();
+
     glFlush();
 }
+
+void keyboard(unsigned char key, int x, int y)
+{
+    if (key == 'r' || key == 'R')  // Toggle rain when "R" is pressed
+    {
+        if (rainActive)
+            rainActive = 0;  // Stop rain
+        else
+            initRain();  // Start rain
+    }
+}
+
+void update(int value) {
+    updateRain();
+    glutPostRedisplay();  // Trigger redraw
+    glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
+}
+
 
 int main(int argc, char** argv)
 {
@@ -462,9 +388,11 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Sriti Shoudho (Updated Buildings, Flowers, Road)");
+    glutCreateWindow("Sriti Shoudho");
     init();
+	glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
+	glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;
 }
