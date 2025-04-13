@@ -1,7 +1,7 @@
 
 #include<windows.h>
 #include <GL/glut.h>
-
+#include "include/draw.h"
 
 void init(void)
 {
@@ -22,7 +22,7 @@ void drawShapes(void)
 	glPointSize(10.0);
 
 	// Draw a couple of points
-
+    drawHouse();
 	//Set colour to red
 	glColor3f(0.145, 0.788, 0.125);
 
