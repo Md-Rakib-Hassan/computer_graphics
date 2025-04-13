@@ -10,5 +10,6 @@ void drawSun(float cx, float cy, float radius, int segments = 100);
 void drawStalls(float offsetX, float offsetY);
 void drawMoon(float cx, float cy, float radius);
 //void rainEffect();
+void drawBoat(int offsetX, int offsetY, float scaleX, float scaleY, bool motion, bool sail = true);
 
 #endif
