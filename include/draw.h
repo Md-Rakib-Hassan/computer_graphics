@@ -11,5 +11,11 @@ void drawStalls(float offsetX, float offsetY);
 void drawMoon(float cx, float cy, float radius);
 //void rainEffect();
 void drawBoat(int offsetX, int offsetY, float scaleX, float scaleY, bool motion, bool sail = true);
+void drawStreetLamp(float x1, float y1, float height);
+void drawLine(float x1, float y1, float x2, float y2);
+void drawFilledTriangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b);
+void drawCircle(float cx, float cy, float r, float red, float green, float blue);
+void drawMetroPillars();
+
 
 #endif

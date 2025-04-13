@@ -27,89 +27,18 @@ void init()
     srand(time(0));
 }
 
-void drawLine(float x1, float y1, float x2, float y2)
-{
-    glBegin(GL_LINES);
-    glVertex2f(x1, y1);
-    glVertex2f(x2, y2);
-    glEnd();
-}
-
-void drawFilledTriangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b)
-{
-    glColor3f(r, g, b);
-    glBegin(GL_TRIANGLES);
-        glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
-        glVertex2f(x3, y3);
-    glEnd();
-
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glLineWidth(1.0f);
-    glBegin(GL_LINE_LOOP);
-        glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
-        glVertex2f(x3, y3);
-    glEnd();
-}
 
 
-void drawCircle(float cx, float cy, float r, float red, float green, float blue)
-{
-    glColor3f(red, green, blue);
-    glBegin(GL_POLYGON);
-    for (int i = 0; i < 360; i++)
-    {
-        float angle = i * M_PI / 180.0f;
-        float x = cx + cos(angle) * r;
-        float y = cy + sin(angle) * r;
-        glVertex2f(x, y);
-    }
-    glEnd();
-}
 
 
-void drawStreetLamp(float x1, float y1, float height)
-{
-    drawLine(x1, y1, x1, y1 + height);
-    drawCircle(x1, y1 + height + 3, 4, 1.0f, 1.0f, 0.5f);
-}
 
 
-void drawMetroPillar(float x, float y, float height) {
-    // Draw vertical pillar
-    glColor3f(0.4f, 0.4f, 0.4f); // concrete gray
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 2, y);
-    glVertex2f(x + 2, y);
-    glVertex2f(x + 2, y + height);
-    glVertex2f(x - 2, y + height);
-    glEnd();
 
-    // Top slab (track platform)
-    glColor3f(0.1f, 0.1f, 0.1f); // darker slab
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 10, y + height);
-    glVertex2f(x + 10, y + height);
-    glVertex2f(x + 10, y + height + 3);
-    glVertex2f(x - 10, y + height + 3);
-    glEnd();
-}
 
-void drawMetroPillars()
-{
-    float topRightX = 425, topRightY = 350;
-    float bottomRightX = 0, bottomRightY = 230;
 
-    bottomRightX = topRightX - 425;  // Assuming -150 + 75
 
-    for (float i = 0; i <= 1.0f; i += 0.1f)
-    {
-        float x = topRightX * (1 - i) + bottomRightX * i;
-        float y = topRightY * (1 - i) + bottomRightY * i;
-        drawMetroPillar(x + 25, y, 40); // offset to the right
-    }
-}
+
+
 
 
 void drawTree(float x, float y)
@@ -361,7 +290,7 @@ void display()
 	updateRain();
 	drawRain();
 
-    drawBoat(640, 200, 0.5, 0.5, true,true);  // motion = true
+    drawBoat(640, 200, 0.7, 0.7, true);  // motion = true
 
     glutPostRedisplay();
 
