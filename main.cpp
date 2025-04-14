@@ -254,6 +254,7 @@ void drawBackground()
     drawCar(150, 350);
     drawMetro(60,430,200,120);
     drawConcreteFloor();
+    drawMainBuilding(0,278,.6,.8);
     drawRoadWithLamps();
     //drawMetroPillars();
     //drawMetroTrack();
@@ -271,6 +272,7 @@ void drawBackground()
 void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     drawBackground();
+
 
 
     drawCar(100, 280);
