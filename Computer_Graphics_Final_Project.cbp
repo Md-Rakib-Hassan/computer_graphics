@@ -48,6 +48,7 @@
 		<Unit filename="functions/drawCircle.cpp" />
 		<Unit filename="functions/drawCloud.cpp" />
 		<Unit filename="functions/drawFilledTriangle.cpp" />
+		<Unit filename="functions/drawFlag.cpp" />
 		<Unit filename="functions/drawFlower.cpp" />
 		<Unit filename="functions/drawHouse.cpp" />
 		<Unit filename="functions/drawLake.cpp" />
@@ -55,6 +56,7 @@
 		<Unit filename="functions/drawMemorial.cpp" />
 		<Unit filename="functions/drawMetroPillars.cpp" />
 		<Unit filename="functions/drawMoon.cpp" />
+		<Unit filename="functions/drawMountain.cpp" />
 		<Unit filename="functions/drawPlan.cpp" />
 		<Unit filename="functions/drawPondInfrontofSriti.cpp" />
 		<Unit filename="functions/drawRain.cpp" />
