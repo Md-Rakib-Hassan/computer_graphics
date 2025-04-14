@@ -39,4 +39,7 @@ void drawBus(float x, float y, float scale, float angleDegrees);
 void updateTrain(int value);
 void drawMetro(int offsetX = 0, int offsetY = 0, float scaleX = 5.0f, float scaleY = 5.0f);
 void updateTrain(int value);
+void drawRoadWithLamps();
+void drawCircleSnow(float cx, float cy, float r);
+void drawMetroTrack();
 #endif

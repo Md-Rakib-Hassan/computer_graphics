@@ -58,50 +58,6 @@ void init()
     srand(time(0));
 }
 
-void drawRoadWithLamps()
-{
-
-    float topLeftX = 350, topLeftY = 350;
-    float topRightX = topLeftX + 75;
-    float bottomLeftX = -150, bottomLeftY = 230;
-    float bottomRightX = bottomLeftX + 150;
-
-    glColor3f(0.2f, 0.2f, 0.2f); // dark gray road
-    glBegin(GL_POLYGON);
-    glVertex2f(topLeftX, topLeftY);
-    glVertex2f(topRightX, topLeftY);
-    glVertex2f(bottomRightX, bottomLeftY);
-    glVertex2f(bottomLeftX, bottomLeftY);
-    glEnd();
-
-    // ----- Draw street lamps -----
-    for (float i = 0; i <= 1.0f; i += 0.1f)
-    {
-        float x = topLeftX * (1 - i) + bottomLeftX * i;
-        float y = topLeftY * (1 - i) + bottomLeftY * i;
-        drawStreetLamp(x + 5, y, 30);
-    }
-    glEnd();
-}
-
-void drawMetroTrack()
-{
-    float topRightX = 425, topRightY = 350;
-    float bottomRightX = 0, bottomRightY = 230;
-
-    bottomRightX = topRightX - 425; // reuse logic
-
-    glColor3f(0.3f, 0.3f, 0.3f); // rail color
-    glBegin(GL_LINES);
-    for (float i = 0; i <= 1.0f; i += 0.05f)
-    {
-        float x = topRightX * (1 - i) + bottomRightX * i;
-        float y = topRightY * (1 - i) + bottomRightY * i;
-        glVertex2f(x + 15, y + 43); // left rail
-        glVertex2f(x + 35, y + 43); // right rail
-    }
-    glEnd();
-}
 
 void initRain()
 {
@@ -169,18 +125,7 @@ void updateSnowflakes()
     glutPostRedisplay();
 }
 
-void drawCircleSnow(float cx, float cy, float r)
-{
-    glBegin(GL_POLYGON);
-    for (int i = 0; i < 360; i++)
-    {
-        float angle = i * M_PI / 180.0f;
-        float x = cx + cos(angle) * r;
-        float y = cy + sin(angle) * r;
-        glVertex2f(x, y);
-    }
-    glEnd();
-}
+
 
 void initFireParticles()
 {

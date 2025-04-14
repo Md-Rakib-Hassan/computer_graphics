@@ -988,14 +988,14 @@
 	<math.h>
 	"../include/draw.h"
 
-1744662159 source:c:\users\lenovo\documents\xddd\computer_graphics\main.cpp
+1744663975 source:c:\users\lenovo\documents\xddd\computer_graphics\main.cpp
 	<GL/glut.h>
 	<math.h>
 	<stdlib.h>
 	<time.h>
 	"include/draw.h"
 
-1744662767 c:\users\lenovo\documents\xddd\computer_graphics\include\draw.h
+1744664203 c:\users\lenovo\documents\xddd\computer_graphics\include\draw.h
 
 1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcircle.cpp
 	<GL/glut.h>
@@ -1290,5 +1290,12 @@
 	<math.h>
 
 1744662687 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawmetro.cpp
+	<GL/glut.h>
+
+1744663988 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcirclesnow.cpp
+	<GL/glut.h>
+	<math.h>
+
+1744663804 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawmetrotrack.cpp
 	<GL/glut.h>
 
