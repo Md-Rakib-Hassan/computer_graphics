@@ -3,7 +3,7 @@
 
 void drawBuilding(float x, float width, float height)
 {
-    float baseY = 400;
+    float baseY = 350;
 
     glColor3f(0.4f, 0.4f, 0.4f);
     glBegin(GL_POLYGON);

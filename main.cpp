@@ -21,6 +21,9 @@ typedef struct {
 Raindrop raindrops[MAX_RAINDROPS];
 int rainActive = 0;
 
+bool showMemorial = true;
+bool isNight = false;
+
 void init()
 {
     glClearColor(0.53f, 0.81f, 0.98f, 1.0f);
@@ -28,37 +31,6 @@ void init()
     glLoadIdentity();
     gluOrtho2D(0.0, WINDOW_WIDTH, 0.0, WINDOW_HEIGHT);
     srand(time(0));
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void drawTree(float x, float y)
-{
-    // Draw trunk
-    glColor3f(0.55f, 0.27f, 0.07f); // brown
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 2, y);
-    glVertex2f(x + 2, y);
-    glVertex2f(x + 2, y + 20);
-    glVertex2f(x - 2, y + 20);
-    glEnd();
-
-    // Draw leaves (three overlapping green circles)
-    drawCircle(x, y + 25, 7, 0.0f, 0.5f, 0.0f);
-    drawCircle(x - 5, y + 20, 6, 0.0f, 0.6f, 0.0f);
-    drawCircle(x + 5, y + 20, 6, 0.0f, 0.6f, 0.0f);
 }
 
 
@@ -112,21 +84,6 @@ void drawMetroTrack()
 }
 
 
-void drawFlower(float cx, float cy)
-{
-    drawCircle(cx, cy, 10, 1.0f, 0.0f, 0.0f);
-    for (int i = 0; i < 5; ++i)
-    {
-        float angle = i * 2 * M_PI / 5;
-        float px = cx + cos(angle) * 6;
-        float py = cy + sin(angle) * 6;
-        float r = (rand() % 100) / 100.0f;
-        float g = (rand() % 100) / 100.0f;
-        float b = (rand() % 100) / 100.0f;
-        drawCircle(px + (rand()%5 - 2), py + (rand()%5 - 2), 3 + rand()%2, r, g, b);
-    }
-}
-
 
 void initRain() {
     for (int i = 0; i < MAX_RAINDROPS; i++) {
@@ -164,7 +121,16 @@ void drawRain() {
 
 void drawBackground()
 {
-    glColor3f(0.0f, 0.6f, 0.0f);
+    if (isNight) {
+        glClearColor(0.02f, 0.09f, 0.27f, 1.0f);  // Dark blueish night sky
+    } else {
+        glClearColor(0.53f, 0.81f, 0.98f, 1.0f);  // Daytime sky blue
+    }
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    //Ground
+    glColor3f(0.0f, isNight ? 0.3f: 0.6f, 0.0f);
     glBegin(GL_POLYGON);
     glVertex2f(0, 0);
     glVertex2f(WINDOW_WIDTH, 0);
@@ -206,75 +172,53 @@ void drawBackground()
         bx += bw - 10 + rand() % 10;
     }
 
+    // Mountains
+    drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
+    drawMountain(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
+    drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
+
+
+	float bx = 190;
+
+	// Building 1
+	float bw1 = 30;
+	float bh1 = 70;
+	drawBuilding(bx, bw1, bh1);
+	bx += bw1;
+	
+	// Building 2
+	float bw2 = 40;
+	float bh2 = 90;
+	drawBuilding(bx, bw2, bh2);
+	bx += bw2;
+	
+	// Building 3
+	float bw3 = 25;
+	float bh3 = 50;
+	drawBuilding(bx, bw3, bh3);
+	bx += bw3;
+	
+	// Building 4
+	float bw4 = 35;
+	float bh4 = 100;
+	drawBuilding(bx, bw4, bh4);
+	bx += bw4;
+
+
     drawRoadWithLamps();
     drawMetroPillars();
     drawMetroTrack();
     drawRiverAndLake();
-    drawStalls(0, 0);
-    drawHouse(750, 300, 0.75, 0.5);
-    drawSun(550, 550, 30);
-	drawMoon(400, 550, 30);
-
-}
-
-
-void drawCar(float x, float y)
-{
-    // Body
-    glColor3f(0.9f, 0.1f, 0.1f);
-    glBegin(GL_POLYGON);
-    glVertex2f(x, y);
-    glVertex2f(x + 40, y);
-    glVertex2f(x + 40, y + 15);
-    glVertex2f(x, y + 15);
-    glEnd();
-
-    // Top
-    glColor3f(0.6f, 0.0f, 0.0f);
-    glBegin(GL_POLYGON);
-    glVertex2f(x + 5, y + 15);
-    glVertex2f(x + 35, y + 15);
-    glVertex2f(x + 30, y + 25);
-    glVertex2f(x + 10, y + 25);
-    glEnd();
-
-    // Wheels
-    drawCircle(x + 8, y - 2, 4, 0.1f, 0.1f, 0.1f);
-    drawCircle(x + 32, y - 2, 4, 0.1f, 0.1f, 0.1f);
-}
-
-
-
-void drawSritiShoudhoWithFilledShapes()
-{
-    int cx = 425;
-    int cy = 250;
-    int base = 100;
-    int height = 350;
-
-    drawFilledTriangle(cx - 20, cy, cx + 20, cy, cx, cy + height, 0.6f, 0.6f, 0.6f);
-
-    for (int i = 1; i <= 3; ++i)
-    {
-        float offset = i * 40;
-        float h = height * (1.0f - i * 0.1f);
-        float thickness = 20;
-
-        drawFilledTriangle(cx - offset - thickness, cy, cx - offset + thickness, cy, cx, cy + h, 0.7f - 0.1f * i, 0.7f - 0.1f * i, 0.7f - 0.1f * i);
-        drawFilledTriangle(cx + offset - thickness, cy, cx + offset + thickness, cy, cx, cy + h, 0.7f - 0.1f * i, 0.7f - 0.1f * i, 0.7f - 0.1f * i);
-    }
-
-    drawFilledTriangle(cx - 30, cy, cx + 30, cy, cx, cy + height * 0.5f, 0.3f, 0.3f, 0.3f);
-
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
-
-    for (int i = 0; i < 20; ++i)
-    {
-        float fx = cx - 70 + (float)(rand() % 140);
-        float fy = cy - 20 - (float)(rand() % 25);
-        drawFlower(fx, fy);
+    drawStalls(0, 0);
+    drawHouse(750, 300, 0.75, 0.5);
+    if (isNight) {
+        drawMoon(550, 550, 30);  // Show moon
+    } else {
+        drawSun(550, 550, 30);   // Show sun
     }
+
 }
 
 
@@ -282,7 +226,6 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
     drawBackground();
-    drawSritiShoudhoWithFilledShapes();
     drawCar(150, 350);
     drawCar(100, 280);
 
@@ -295,15 +238,45 @@ void display()
         drawTree(600 + i * 10, 220 - i * 10);
     }
 
-	updateRain();
-	drawRain();
-
-    drawBoat(640, 200, 0.7, 0.7, true);  // motion = true
+    drawBoat(640, 200, 0.7, 0.7, true);
 
     glutPostRedisplay();
 
 
+
     drawMemorial(250,262,1,1.6);
+
+    if(showMemorial) {
+        drawMemorial(260,262,1,1.8);
+    } 
+    else {
+        drawSritiShoudho();
+    }
+
+    drawStepsInFrontOfSritiShoudho();
+    drawPondInfrontOfSriti();
+
+    float flowerPositions[10][2] = {
+        {360, 230},
+        {370, 225},
+        {380, 235},
+        {390, 220},
+        {400, 230},
+        {410, 218},
+        {420, 232},
+        {430, 228},
+        {440, 225},
+        {450, 230}
+    };
+    
+    for (int i = 0; i < 10; ++i)
+    {
+        drawFlower(flowerPositions[i][0]+20, flowerPositions[i][1]+25);
+    }
+    drawFlag(425, 160, 3);
+
+	updateRain();
+	drawRain();
 
 
 
@@ -312,14 +285,24 @@ void display()
 
 void keyboard(unsigned char key, int x, int y)
 {
-    if (key == 'r' || key == 'R')  // Toggle rain when "R" is pressed
+    if (key == 'r' || key == 'R')
     {
         if (rainActive)
-            rainActive = 0;  // Stop rain
+            rainActive = 0; 
         else
-            initRain();  // Start rain
+            initRain();
     }
-}
+
+    if(key == 'm' || key == 'M')
+    {
+        showMemorial = !showMemorial;
+    }
+
+    if(key == 'n' || key == 'N')
+    {
+        isNight = !isNight;
+    }
+
 
 void update(int value) {
     updateRain();
@@ -334,7 +317,9 @@ void update(int value) {
 
     glutPostRedisplay();
    glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
+
 }
+
 
 
 int main(int argc, char** argv)
@@ -347,7 +332,9 @@ int main(int argc, char** argv)
     init();
 	glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
+
 	glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;
 }
+

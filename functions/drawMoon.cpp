@@ -1,5 +1,5 @@
 #include <GL/glut.h>
-#include <cmath>
+#include <math.h>
 
 // Utility: draw a filled circle
 void drawCircle(float cx, float cy, float r, float red, float green, float blue, float alpha = 1.0f) 
