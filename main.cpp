@@ -306,11 +306,12 @@ void drawBackground()
     }
 
     drawCloudSmall(cloud1X, 550, 1.0f); // Cloud 1
-
+    drawCar(150, 350);
+    drawMetro(60,430,200,120);
     drawConcreteFloor();
     drawRoadWithLamps();
-    drawMetroPillars();
-    drawMetroTrack();
+    //drawMetroPillars();
+    //drawMetroTrack();
     drawRiverAndLake();
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
@@ -320,11 +321,13 @@ void drawBackground()
     drawBus(200, 180, 0.7f, -6.0f);
 }
 
-void display()
-{
+
+
+void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     drawBackground();
-    drawCar(150, 350);
+
+
     drawCar(100, 280);
 
     drawBoat(640, 250, 0.6, 0.5, true, false);
@@ -387,6 +390,9 @@ void display()
         }
     }
 
+
+
+
     glutSwapBuffers();
 
     // drawGrid(10.0f, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -445,8 +451,8 @@ void update(int value)
         cloud2X = -150;
     if (cloud3X > WINDOW_WIDTH + 100)
         cloud3X = -200;
-    
-    
+
+
 
     glutPostRedisplay();
     glutTimerFunc(16, update, 0); // 16 ms -> roughly 60 FPS
@@ -464,8 +470,9 @@ int main(int argc, char **argv)
     glutDisplayFunc(display);
 
     initSnowflakes();
-
+    glutTimerFunc(0, updateTrain, 0);
     glutTimerFunc(25, update, 0);
+    glutTimerFunc(1, updateTrain, 0);
     glutMainLoop();
     return 0;
 }
