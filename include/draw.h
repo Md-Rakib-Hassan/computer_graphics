@@ -43,4 +43,5 @@ void drawRoadWithLamps();
 void drawCircleSnow(float cx, float cy, float r);
 void drawMetroTrack();
 void drawMainBuilding(int offsetX = 0, int offsetY = 0, float scaleX = 1.0f, float scaleY = 1.0f);
+void drawMiniPlan(float offsetX = 0.0f, float offsetY = 0.0f, float scaleX = 1.0f, float scaleY = 1.0f);
 #endif

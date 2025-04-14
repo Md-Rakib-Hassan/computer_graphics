@@ -274,7 +274,6 @@ void display(){
     drawBackground();
 
 
-
     drawCar(100, 280);
 
     drawBoat(640, 250, 0.6, 0.5, true, false);
@@ -293,7 +292,7 @@ void display(){
 
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
-
+drawMiniPlan(150,100);
     for (int i = 0; i < 8; i++)
     {
         drawTree(600 + i * 30, 180 - i * 30, 0.50f);
