@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <math.h>
+
 void drawCircle(float cx, float cy, float r, float red, float green, float blue)
 {
     glColor3f(red, green, blue);
