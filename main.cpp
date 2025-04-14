@@ -10,6 +10,9 @@
 #define GROUND_TOP_Y SKY_START_Y
 #define MAX_RAINDROPS 500
 
+float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
+float cloudSpeed = 0.5f; // Speed of cloud motion
+
 typedef struct {
 	float x, y;
 	float speed;
@@ -143,6 +146,32 @@ void drawBackground()
     glVertex2f(0, GROUND_TOP_Y);
     glEnd();
 
+    drawCircle(100, SKY_START_Y + 70, 20, 1.0f, 1.0f, 1.0f);
+    drawCircle(130, SKY_START_Y + 90, 25, 1.0f, 1.0f, 1.0f);
+    drawCircle(170, SKY_START_Y + 70, 20, 1.0f, 1.0f, 1.0f);
+
+    drawCircle(600, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
+    drawCircle(630, SKY_START_Y + 120, 23, 1.0f, 1.0f, 1.0f);
+    drawCircle(670, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
+
+    drawCloudSmall(cloud1X, 550, 1.0f);   // Cloud 1
+    drawCloudMedium(cloud2X, 500, 0.8f);  // Cloud 2
+    drawCloudLarge(cloud3X, 450, 1.2f);   // Cloud 3
+
+    //drawCircle(760, SKY_START_Y + 90, 30, 1.0f, 1.0f, 0.0f);
+
+    drawFilledTriangle(690, 350, 770, 510, 850, 350, 0.4f, 0.3f, 0.2f);
+    drawFilledTriangle(640, 350, 715, 460, 790, 350, 0.5f, 0.4f, 0.3f);
+
+    float bx = 75;
+    for (int i = 0; i < 6; ++i)
+    {
+        float bw = 30 + rand() % 20;
+        float bh = 60 + rand() % 100;
+        drawBuilding(bx, bw, bh);
+        bx += bw - 10 + rand() % 10;
+    }
+
     // Mountains
     drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
     drawMountain(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
@@ -175,6 +204,7 @@ void drawBackground()
 	drawBuilding(bx, bw4, bh4);
 	bx += bw4;
 
+
     drawRoadWithLamps();
     drawMetroPillars();
     drawMetroTrack();
@@ -190,6 +220,7 @@ void drawBackground()
     }
 
 }
+
 
 void display()
 {
@@ -210,6 +241,10 @@ void display()
     drawBoat(640, 200, 0.7, 0.7, true);
 
     glutPostRedisplay();
+
+
+
+    drawMemorial(250,262,1,1.6);
 
     if(showMemorial) {
         drawMemorial(260,262,1,1.8);
@@ -243,6 +278,8 @@ void display()
 	updateRain();
 	drawRain();
 
+
+
     glFlush();
 }
 
@@ -266,6 +303,21 @@ void keyboard(unsigned char key, int x, int y)
         isNight = !isNight;
     }
 
+
+void update(int value) {
+    updateRain();
+     cloud1X += cloudSpeed;
+    cloud2X += cloudSpeed * 0.7f;
+    cloud3X += cloudSpeed * 0.4f;
+
+    // Reset position if off screen
+    if (cloud1X > WINDOW_WIDTH+100) cloud1X = -100;
+    if (cloud2X > WINDOW_WIDTH+100) cloud2X = -150;
+    if (cloud3X > WINDOW_WIDTH+100) cloud3X = -200;
+
+    glutPostRedisplay();
+   glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
+
 }
 
 
@@ -280,6 +332,8 @@ int main(int argc, char** argv)
     init();
 	glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
+
+	glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;
 }
