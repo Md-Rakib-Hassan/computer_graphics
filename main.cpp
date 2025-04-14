@@ -294,6 +294,8 @@ void display()
 
     glutPostRedisplay();
 
+    drawMemorial(250,262,1,1.6);
+
     glFlush();
 }
 
@@ -311,7 +313,7 @@ void keyboard(unsigned char key, int x, int y)
 void update(int value) {
     updateRain();
     glutPostRedisplay();  // Trigger redraw
-    glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
+   // glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
 }
 
 
@@ -325,7 +327,7 @@ int main(int argc, char** argv)
     init();
 	glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
-	glutTimerFunc(25, update, 0);
+	//glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;
 }

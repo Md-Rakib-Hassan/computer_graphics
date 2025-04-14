@@ -978,16 +978,16 @@
 	<GL/glut.h>
 	<math.h>
 
-1744575053 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawtree.cpp
+1744604080 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawtree.cpp
 
-1744574758 source:c:\users\lenovo\documents\xddd\computer_graphics\main.cpp
+1744611334 source:c:\users\lenovo\documents\xddd\computer_graphics\main.cpp
 	<GL/glut.h>
 	<math.h>
 	<stdlib.h>
 	<time.h>
 	"include/draw.h"
 
-1744575029 c:\users\lenovo\documents\xddd\computer_graphics\include\draw.h
+1744609357 c:\users\lenovo\documents\xddd\computer_graphics\include\draw.h
 
 1744575035 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcircle.cpp
 	<GL/glut.h>
@@ -1006,4 +1006,8 @@
 
 1744575051 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawstreetlamp.cpp
 	"../include/draw.h"
+
+1744611646 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawmemorial.cpp
+	<GL/gl.h>
+	<GL/glut.h>
 
