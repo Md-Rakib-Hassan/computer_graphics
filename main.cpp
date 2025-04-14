@@ -118,7 +118,16 @@ void drawRain() {
 
 void drawBackground()
 {
-    glColor3f(0.0f, 0.6f, 0.0f);
+    if (isNight) {
+        glClearColor(0.02f, 0.09f, 0.27f, 1.0f);  // Dark blueish night sky
+    } else {
+        glClearColor(0.53f, 0.81f, 0.98f, 1.0f);  // Daytime sky blue
+    }
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    //Ground
+    glColor3f(0.0f, isNight ? 0.3f: 0.6f, 0.0f);
     glBegin(GL_POLYGON);
     glVertex2f(0, 0);
     glVertex2f(WINDOW_WIDTH, 0);
@@ -134,41 +143,35 @@ void drawBackground()
     glVertex2f(0, GROUND_TOP_Y);
     glEnd();
 
-    drawCircle(100, SKY_START_Y + 70, 20, 1.0f, 1.0f, 1.0f);
-    drawCircle(130, SKY_START_Y + 90, 25, 1.0f, 1.0f, 1.0f);
-    drawCircle(170, SKY_START_Y + 70, 20, 1.0f, 1.0f, 1.0f);
-
-    drawCircle(600, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
-    drawCircle(630, SKY_START_Y + 120, 23, 1.0f, 1.0f, 1.0f);
-    drawCircle(670, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
+    // Mountains
+    drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
+    drawMountain(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
+    drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
 
 
-    drawFilledTriangle(690, 350, 770, 510, 850, 350, 0.4f, 0.3f, 0.2f);
-    drawFilledTriangle(640, 350, 715, 460, 790, 350, 0.5f, 0.4f, 0.3f);
-
-	float bx = 80;
+	float bx = 190;
 
 	// Building 1
-	float bw1 = 40;
-	float bh1 = 100;
+	float bw1 = 30;
+	float bh1 = 70;
 	drawBuilding(bx, bw1, bh1);
 	bx += bw1;
 	
 	// Building 2
-	float bw2 = 50;
-	float bh2 = 120;
+	float bw2 = 40;
+	float bh2 = 90;
 	drawBuilding(bx, bw2, bh2);
 	bx += bw2;
 	
 	// Building 3
-	float bw3 = 35;
-	float bh3 = 80;
+	float bw3 = 25;
+	float bh3 = 50;
 	drawBuilding(bx, bw3, bh3);
 	bx += bw3;
 	
 	// Building 4
-	float bw4 = 45;
-	float bh4 = 140;
+	float bw4 = 35;
+	float bh4 = 100;
 	drawBuilding(bx, bw4, bh4);
 	bx += bw4;
 
@@ -176,10 +179,15 @@ void drawBackground()
     drawMetroPillars();
     drawMetroTrack();
     drawRiverAndLake();
+    drawStepsInFrontOfSritiShoudho();
+    drawPondInfrontOfSriti();
     drawStalls(0, 0);
     drawHouse(750, 300, 0.75, 0.5);
-    drawSun(550, 550, 30);
-	drawMoon(400, 550, 30);
+    if (isNight) {
+        drawMoon(550, 550, 30);  // Show moon
+    } else {
+        drawSun(550, 550, 30);   // Show sun
+    }
 
 }
 
@@ -199,15 +207,12 @@ void display()
         drawTree(600 + i * 10, 220 - i * 10);
     }
 
-	updateRain();
-	drawRain();
-
     drawBoat(640, 200, 0.7, 0.7, true);
 
     glutPostRedisplay();
 
     if(showMemorial) {
-        drawMemorial(250,262,1,1.6);
+        drawMemorial(260,262,1,1.8);
     } 
     else {
         drawSritiShoudho();
@@ -233,7 +238,10 @@ void display()
     {
         drawFlower(flowerPositions[i][0]+20, flowerPositions[i][1]+25);
     }
-    
+    drawFlag(425, 160, 3);
+
+	updateRain();
+	drawRain();
 
     glFlush();
 }
@@ -275,3 +283,4 @@ int main(int argc, char** argv)
     glutMainLoop();
     return 0;
 }
+

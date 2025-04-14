@@ -14,7 +14,7 @@ void drawTree(float x, float y)
     glEnd();
 
     // Draw leaves (three overlapping green circles)
-    drawCircle(x, y + 25, 7, 0.0f, 0.5f, 0.0f);
-    drawCircle(x - 5, y + 20, 6, 0.0f, 0.6f, 0.0f);
-    drawCircle(x + 5, y + 20, 6, 0.0f, 0.6f, 0.0f);
+    drawCircle(x, y + 25, 7, 0, 128, 0);     // 0.0f, 0.5f, 0.0f
+    drawCircle(x - 5, y + 20, 6, 0, 153, 0); // 0.0f, 0.6f, 0.0f
+    drawCircle(x + 5, y + 20, 6, 0, 153, 0); // 0.0f, 0.6f, 0.0f
 }

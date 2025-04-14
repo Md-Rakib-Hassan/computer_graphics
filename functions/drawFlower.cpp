@@ -4,16 +4,16 @@
 
 void drawFlower(float cx, float cy)
 {
-    // Center of flower — soft pink
-    drawCircle(cx, cy, 12, 1.0f, 1.0f, 1.0f);
+    // Center of flower — soft pink (white originally)
+    drawCircle(cx, cy, 12, 255, 255, 255);
 
-    // Predefined colors for petals (aesthetic palette)
-    float petalColors[5][3] = {
-        {0.9f, 0.3f, 0.4f},   // Rose red
-        {1.0f, 0.6f, 0.2f},   // Warm orange
-        {1.0f, 0.85f, 0.3f},  // Soft yellow
-        {0.4f, 0.8f, 0.4f},   // Light green
-        {0.6f, 0.4f, 1.0f}    // Lavender
+    // Petal colors in 0–255 RGB
+    unsigned char petalColors[5][3] = {
+        {230, 77, 102},    // Rose red
+        {255, 153, 51},    // Warm orange
+        {255, 217, 77},    // Soft yellow
+        {102, 204, 102},   // Light green
+        {153, 102, 255}    // Lavender
     };
 
     // Draw 5 petals
@@ -23,14 +23,12 @@ void drawFlower(float cx, float cy)
         float px = cx + cos(angle) * 6;
         float py = cy + sin(angle) * 6;
 
-        float r = petalColors[i][0];
-        float g = petalColors[i][1];
-        float b = petalColors[i][2];
+        unsigned char r = petalColors[i][0];
+        unsigned char g = petalColors[i][1];
+        unsigned char b = petalColors[i][2];
 
-        // Petals have slight shape variety (size variation)
         float radius = 3.0f + (i % 2);  // Alternates between 3 and 4
 
-        // Gentle offset for visual liveliness
         float offsetX = (i % 2 == 0) ? -1.5f : 1.5f;
         float offsetY = (i % 2 == 0) ? 1.5f : -1.5f;
 

@@ -13,12 +13,21 @@ void drawStalls(float offsetX, float offsetY) {
     vx(200, 200);
     glEnd();
 
-    glColor3f(0.0f, 0.0f, 0.0f); // Border
+    // Roof outline
+    glColor3f(0.0f, 0.0f, 0.0f);
     glBegin(GL_LINE_LOOP);
     vx(-50, 50);
     vx(0, 0);
     vx(275, 200);
     vx(200, 200);
+    glEnd();
+
+    // Roof internal lines
+    glBegin(GL_LINES);
+    vx(0, 0); vx(200, 200);   // diagonal
+    vx(-50, 50); vx(275, 200); // opposite diagonal
+    //vx(-25, 25); vx(237, 200); // midline left
+    //vx(100, 100); vx(237, 200); // midline right
     glEnd();
 
     // Main front face
@@ -30,7 +39,8 @@ void drawStalls(float offsetX, float offsetY) {
     vx(70, 0);
     glEnd();
 
-    glColor3f(0.0f, 0.0f, 0.0f); // Border
+    // Main front face outline
+    glColor3f(0.0f, 0.0f, 0.0f);
     glBegin(GL_LINE_LOOP);
     vx(0, 0);
     vx(275, 200);
@@ -47,7 +57,8 @@ void drawStalls(float offsetX, float offsetY) {
     vx(70, 0);
     glEnd();
 
-    glColor3f(0.0f, 0.0f, 0.0f); // Border
+    // Main front counter outline
+    glColor3f(0.0f, 0.0f, 0.0f);
     glBegin(GL_LINE_LOOP);
     vx(30, 0);
     vx(275, 175);
@@ -64,7 +75,8 @@ void drawStalls(float offsetX, float offsetY) {
     vx(95, 20);
     glEnd();
 
-    glColor3f(0.0f, 0.0f, 0.0f); // Border
+    // Door outline
+    glColor3f(0.0f, 0.0f, 0.0f);
     glBegin(GL_LINE_LOOP);
     vx(90, 60);
     vx(110, 70);

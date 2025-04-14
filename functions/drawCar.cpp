@@ -23,6 +23,7 @@ void drawCar(float x, float y)
     glEnd();
 
     // Wheels
-    drawCircle(x + 8, y - 2, 4, 0.1f, 0.1f, 0.1f);
-    drawCircle(x + 32, y - 2, 4, 0.1f, 0.1f, 0.1f);
+    drawCircle(x + 8,  y - 2, 4, 26, 26, 26);   // 0.1f * 255 ≈ 25.5
+    drawCircle(x + 32, y - 2, 4, 26, 26, 26);
+    
 }
