@@ -28,7 +28,6 @@ void drawSun(float cx, float cy, float radius, int segments = 100)
     drawCircleSun(cx, cy, radius * 1.8f, 1.0f, 0.9f, 0.0f, 0.10f);
     drawCircleSun(cx, cy, radius * 1.4f, 1.0f, 0.95f, 0.1f, 0.12f);
 
-    // 🌞 Inner intensity using gradient strips
     for (int i = 0; i < 10; ++i) {
         float innerR = (float)i / 10;
         float outerR = (float)(i + 1) / 10;

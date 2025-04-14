@@ -25,6 +25,14 @@ void drawTree(float x, float y);
 void drawCar(float x, float y);
 void drawMountain(float x, float baseY, float width, float height, float r, float g, float b);
 void drawFlag(float offsetX, float offsetY, float scale);
+void drawMountain1(float x, float baseY, float width, float height, float r, float g, float b);
+void drawMountain2(float x, float baseY, float width, float height, float r, float g, float b);
+void drawMountain3(float x, float baseY, float width, float height, float r, float g, float b);
+void drawTree(float x, float y, float scale);
+void drawPalmTree(float x, float y, float scale);
+void drawSmallTree2(float cx, float cy, float r, float g, float b, float scale);
+void drawSmallTree1(float cx, float cy, float r, float g, float b, float sizeX, float sizeY);
+
 
 
 #endif

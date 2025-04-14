@@ -13,10 +13,11 @@
 float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
 float cloudSpeed = 0.5f; // Speed of cloud motion
 
-typedef struct {
-	float x, y;
-	float speed;
-}Raindrop;
+typedef struct
+{
+    float x, y;
+    float speed;
+} Raindrop;
 
 Raindrop raindrops[MAX_RAINDROPS];
 int rainActive = 0;
@@ -32,7 +33,6 @@ void init()
     gluOrtho2D(0.0, WINDOW_WIDTH, 0.0, WINDOW_HEIGHT);
     srand(time(0));
 }
-
 
 void drawRoadWithLamps()
 {
@@ -51,7 +51,6 @@ void drawRoadWithLamps()
     glVertex2f(bottomLeftX, bottomLeftY);
     glEnd();
 
-
     // ----- Draw street lamps -----
     for (float i = 0; i <= 1.0f; i += 0.1f)
     {
@@ -60,9 +59,7 @@ void drawRoadWithLamps()
         drawStreetLamp(x + 5, y, 30);
     }
     glEnd();
-
 }
-
 
 void drawMetroTrack()
 {
@@ -83,54 +80,63 @@ void drawMetroTrack()
     glEnd();
 }
 
-
-
-void initRain() {
-    for (int i = 0; i < MAX_RAINDROPS; i++) {
+void initRain()
+{
+    for (int i = 0; i < MAX_RAINDROPS; i++)
+    {
         raindrops[i].x = rand() % WINDOW_WIDTH;
         raindrops[i].y = rand() % WINDOW_HEIGHT;
-        raindrops[i].speed = 1 + rand() % 4;  // Random speed between 1 and 4
+        raindrops[i].speed = 1 + rand() % 4; // Random speed between 1 and 4
     }
-    rainActive = 1;  // Start the rain
+    rainActive = 1; // Start the rain
 }
 
-void updateRain() {
-    for (int i = 0; i < MAX_RAINDROPS; i++) {
-        raindrops[i].y -= raindrops[i].speed;  // Move raindrop down
-        if (raindrops[i].y < 0) {
+void updateRain()
+{
+    for (int i = 0; i < MAX_RAINDROPS; i++)
+    {
+        raindrops[i].y -= raindrops[i].speed; // Move raindrop down
+        if (raindrops[i].y < 0)
+        {
             // Reset raindrop to the top of the screen with a new random x position
             raindrops[i].x = rand() % WINDOW_WIDTH;
             raindrops[i].y = WINDOW_HEIGHT + rand() % 100;
-            raindrops[i].speed = 1 + rand() % 4;  // New random speed
+            raindrops[i].speed = 1 + rand() % 4; // New random speed
         }
     }
 }
 
-void drawRain() {
-    if (rainActive) {
-        glColor3f(0.0f, 0.0f, 1.0f);  // Blue color for raindrops
-        for (int i = 0; i < MAX_RAINDROPS; i++) {
+void drawRain()
+{
+    if (rainActive)
+    {
+        glColor3f(0.0f, 0.0f, 1.0f); // Blue color for raindrops
+        for (int i = 0; i < MAX_RAINDROPS; i++)
+        {
             glBegin(GL_LINES);
-                glVertex2f(raindrops[i].x, raindrops[i].y);
-                glVertex2f(raindrops[i].x, raindrops[i].y - 10);  // Line for raindrop
+            glVertex2f(raindrops[i].x, raindrops[i].y);
+            glVertex2f(raindrops[i].x, raindrops[i].y - 10); // Line for raindrop
             glEnd();
         }
     }
 }
 
-
 void drawBackground()
 {
-    if (isNight) {
-        glClearColor(0.02f, 0.09f, 0.27f, 1.0f);  // Dark blueish night sky
-    } else {
-        glClearColor(0.53f, 0.81f, 0.98f, 1.0f);  // Daytime sky blue
+
+    if (isNight)
+    {
+        glClearColor(0.02f, 0.09f, 0.27f, 1.0f); // Dark blueish night sky
+    }
+    else
+    {
+        glClearColor(0.53f, 0.81f, 0.98f, 1.0f); // Daytime sky blue
     }
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //Ground
-    glColor3f(0.0f, isNight ? 0.3f: 0.6f, 0.0f);
+    // Ground
+    glColor3f(0.0f, isNight ? 0.3f : 0.6f, 0.0f);
     glBegin(GL_POLYGON);
     glVertex2f(0, 0);
     glVertex2f(WINDOW_WIDTH, 0);
@@ -146,43 +152,51 @@ void drawBackground()
     glVertex2f(0, GROUND_TOP_Y);
     glEnd();
 
-
-    drawCloudSmall(cloud1X, 550, 1.0f);   // Cloud 1
-    drawCloudMedium(cloud2X, 500, 0.8f);  // Cloud 2
+    drawCloudMedium(cloud2X, 500, 0.8f); // Cloud 2
 
     // Mountains
-    drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
-    drawMountain(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
-    drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
+    drawMountain1(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f); // Big brown mountain
+    drawMountain2(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f); // Slightly smaller
+    drawMountain3(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f); // Smallest, dark
 
-    drawCloudLarge(cloud3X, 450, 1.2f);   // Cloud 3
+    drawCloudLarge(cloud3X, 450, 1.2f); // Cloud 3
 
-	float bx = 190;
+    float bx = 190;
 
-	// Building 1
-	float bw1 = 30;
-	float bh1 = 70;
-	drawBuilding(bx, bw1, bh1);
-	bx += bw1;
+    // Building 1
+    float bw1 = 30;
+    float bh1 = 70;
+    drawBuilding(bx, bw1, bh1);
+    bx += bw1;
 
-	// Building 2
-	float bw2 = 40;
-	float bh2 = 90;
-	drawBuilding(bx, bw2, bh2);
-	bx += bw2;
+    // Building 2
+    float bw2 = 40;
+    float bh2 = 90;
+    drawBuilding(bx, bw2, bh2);
+    bx += bw2;
 
-	// Building 3
-	float bw3 = 25;
-	float bh3 = 50;
-	drawBuilding(bx, bw3, bh3);
-	bx += bw3;
+    // Building 3
+    float bw3 = 25;
+    float bh3 = 50;
+    drawBuilding(bx, bw3, bh3);
+    bx += bw3;
 
-	// Building 4
-	float bw4 = 35;
-	float bh4 = 100;
-	drawBuilding(bx, bw4, bh4);
-	bx += bw4;
+    // Building 4
+    float bw4 = 35;
+    float bh4 = 100;
+    drawBuilding(bx, bw4, bh4);
+    bx += bw4;
 
+    if (isNight)
+    {
+        drawMoon(550, 550, 30); // Show moon
+    }
+    else
+    {
+        drawSun(550, 550, 30); // Show sun
+    }
+
+    drawCloudSmall(cloud1X, 550, 1.0f);  // Cloud 1
 
     drawRoadWithLamps();
     drawMetroPillars();
@@ -192,14 +206,8 @@ void drawBackground()
     drawPondInfrontOfSriti();
     drawStalls(0, 0);
     drawHouse(750, 300, 0.75, 0.5);
-    if (isNight) {
-        drawMoon(550, 550, 30);  // Show moon
-    } else {
-        drawSun(550, 550, 30);   // Show sun
-    }
 
 }
-
 
 void display()
 {
@@ -208,30 +216,27 @@ void display()
     drawCar(150, 350);
     drawCar(100, 280);
 
-    for (int i = 0; i < 20; i++)
-    {
-        drawTree(580 + i * 10, 220 - i * 10);
-    }
-    for (int i = 0; i < 20; i++)
-    {
-        drawTree(600 + i * 10, 220 - i * 10);
-    }
-
     drawBoat(640, 200, 0.7, 0.7, true);
 
     glutPostRedisplay();
 
-
-
-    if(showMemorial) {
-        drawMemorial(260,262,1,1.8);
+    if (showMemorial)
+    {
+        drawMemorial(260, 262, 1, 1.8);
     }
-    else {
+    else
+    {
         drawSritiShoudho();
     }
 
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
+
+    for (int i = 0; i < 8; i++)
+    {
+        drawTree(590 + i * 30, 180 - i * 30, 0.50f);
+        // drawSmallTree1(580 + i * 20, 180 - i * 20, 0.1f, 0.4f, 0.1f, 30.0f, 30.0f);
+    }
 
     float flowerPositions[10][2] = {
         {360, 230},
@@ -243,19 +248,20 @@ void display()
         {420, 232},
         {430, 228},
         {440, 225},
-        {450, 230}
-    };
+        {450, 230}};
 
     for (int i = 0; i < 10; ++i)
     {
-        drawFlower(flowerPositions[i][0]+20, flowerPositions[i][1]+25);
+        drawFlower(flowerPositions[i][0] + 20, flowerPositions[i][1] + 25);
     }
     drawFlag(425, 160, 3);
 
-	updateRain();
-	drawRain();
+    drawPalmTree(750, 300, 0.8f);
+    drawSmallTree2(100, 50, 0.0f, 0.5f, 0.0f, 20.0f); // Green tree, scale = 20
+    drawSmallTree1(200, 60, 0.1f, 0.4f, 0.1f, 20.0f, 30.0f); // Darker, bigger tree
 
-
+    updateRain();
+    drawRain();
 
     glFlush();
 }
@@ -270,36 +276,37 @@ void keyboard(unsigned char key, int x, int y)
             initRain();
     }
 
-    if(key == 'm' || key == 'M')
+    if (key == 'm' || key == 'M')
     {
         showMemorial = !showMemorial;
     }
 
-    if(key == 'n' || key == 'N')
+    if (key == 'n' || key == 'N')
     {
         isNight = !isNight;
     }
 }
 
-void update(int value) {
+void update(int value)
+{
     updateRain();
-     cloud1X += cloudSpeed;
+    cloud1X += cloudSpeed;
     cloud2X += cloudSpeed * 0.7f;
     cloud3X += cloudSpeed * 0.4f;
 
     // Reset position if off screen
-    if (cloud1X > WINDOW_WIDTH+100) cloud1X = -100;
-    if (cloud2X > WINDOW_WIDTH+100) cloud2X = -150;
-    if (cloud3X > WINDOW_WIDTH+100) cloud3X = -200;
+    if (cloud1X > WINDOW_WIDTH + 100)
+        cloud1X = -100;
+    if (cloud2X > WINDOW_WIDTH + 100)
+        cloud2X = -150;
+    if (cloud3X > WINDOW_WIDTH + 100)
+        cloud3X = -200;
 
     glutPostRedisplay();
-   glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
-
+    glutTimerFunc(16, update, 0); // 16 ms -> roughly 60 FPS
 }
 
-
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -307,11 +314,10 @@ int main(int argc, char** argv)
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Sriti Shoudho");
     init();
-	glutKeyboardFunc(keyboard);
+    glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
 
-	glutTimerFunc(25, update, 0);
+    glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;
 }
-
