@@ -17,5 +17,8 @@ void drawFilledTriangle(float x1, float y1, float x2, float y2, float x3, float 
 void drawCircle(float cx, float cy, float r, float red, float green, float blue);
 void drawMetroPillars();
 void drawMemorial(int offsetX = 0, int offsetY = 0, float scaleX = 1.0f, float scaleY = 1.0f);
+void drawCloudLarge(float x, float y, float scale = 1.0f);
+void drawCloudMedium(float x, float y, float scale = 1.0f);
+void drawCloudSmall(float x, float y, float scale = 1.0f);
 
 #endif

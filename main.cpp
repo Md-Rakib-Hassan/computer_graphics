@@ -10,6 +10,9 @@
 #define GROUND_TOP_Y SKY_START_Y
 #define MAX_RAINDROPS 500
 
+float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
+float cloudSpeed = 0.5f; // Speed of cloud motion
+
 typedef struct {
 	float x, y;
 	float speed;
@@ -185,6 +188,10 @@ void drawBackground()
     drawCircle(630, SKY_START_Y + 120, 23, 1.0f, 1.0f, 1.0f);
     drawCircle(670, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
 
+    drawCloudSmall(cloud1X, 550, 1.0f);   // Cloud 1
+    drawCloudMedium(cloud2X, 500, 0.8f);  // Cloud 2
+    drawCloudLarge(cloud3X, 450, 1.2f);   // Cloud 3
+
     //drawCircle(760, SKY_START_Y + 90, 30, 1.0f, 1.0f, 0.0f);
 
     drawFilledTriangle(690, 350, 770, 510, 850, 350, 0.4f, 0.3f, 0.2f);
@@ -270,6 +277,7 @@ void drawSritiShoudhoWithFilledShapes()
     }
 }
 
+
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -294,7 +302,10 @@ void display()
 
     glutPostRedisplay();
 
+
     drawMemorial(250,262,1,1.6);
+
+
 
     glFlush();
 }
@@ -312,8 +323,17 @@ void keyboard(unsigned char key, int x, int y)
 
 void update(int value) {
     updateRain();
-    glutPostRedisplay();  // Trigger redraw
-   // glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
+     cloud1X += cloudSpeed;
+    cloud2X += cloudSpeed * 0.7f;
+    cloud3X += cloudSpeed * 0.4f;
+
+    // Reset position if off screen
+    if (cloud1X > WINDOW_WIDTH+100) cloud1X = -100;
+    if (cloud2X > WINDOW_WIDTH+100) cloud2X = -150;
+    if (cloud3X > WINDOW_WIDTH+100) cloud3X = -200;
+
+    glutPostRedisplay();
+   glutTimerFunc(16, update, 0);  // 16 ms -> roughly 60 FPS
 }
 
 
@@ -327,7 +347,7 @@ int main(int argc, char** argv)
     init();
 	glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
-	//glutTimerFunc(25, update, 0);
+	glutTimerFunc(25, update, 0);
     glutMainLoop();
     return 0;
 }
