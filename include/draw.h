@@ -32,6 +32,10 @@ void drawTree(float x, float y, float scale);
 void drawPalmTree(float x, float y, float scale);
 void drawSmallTree2(float cx, float cy, float r, float g, float b, float scale);
 void drawSmallTree1(float cx, float cy, float r, float g, float b, float sizeX, float sizeY);
+void drawConcreteFloor();
+void drawParkingLot(float offsetX, float offsetY);
+void drawGrid(float spacing, int width, int height);
+void drawBus(float x, float y, float scale, float angleDegrees);
 
 
 
