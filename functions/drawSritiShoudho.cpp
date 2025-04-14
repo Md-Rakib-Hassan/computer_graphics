@@ -7,7 +7,7 @@ void drawSritiShoudho()
     int cx = 425;
     int cy = 250;
     int base = 100;
-    int height = 350;
+    int height = 300;
 
     drawFilledTriangle(cx - 20, cy, cx + 20, cy, cx, cy + height, 0.6f, 0.6f, 0.6f);
 

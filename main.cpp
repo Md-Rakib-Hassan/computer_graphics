@@ -9,9 +9,21 @@
 #define SKY_START_Y 350
 #define GROUND_TOP_Y SKY_START_Y
 #define MAX_RAINDROPS 500
+#define MAX_SNOWFLAKES 1000
+#define MAX_FIRE_PARTICLES 800
+
+struct FireParticle
+{
+    float x, y;
+    float speed;
+    float r, g, b;
+};
+
+FireParticle fireParticles[MAX_FIRE_PARTICLES];
+int fireActive = 0;
 
 float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
-float cloudSpeed = 0.5f; // Speed of cloud motion
+float cloudSpeed = 0.5f;
 
 typedef struct
 {
@@ -19,8 +31,20 @@ typedef struct
     float speed;
 } Raindrop;
 
+struct Snowflake
+{
+    float x, y;
+    float speed;
+    float radius;
+};
+
+Snowflake snowflakes[MAX_SNOWFLAKES];
+int windowWidth = 800;
+int windowHeight = 600;
+
 Raindrop raindrops[MAX_RAINDROPS];
 int rainActive = 0;
+int snowActive = 0;
 
 bool showMemorial = true;
 bool isNight = false;
@@ -36,13 +60,12 @@ void init()
 
 void drawRoadWithLamps()
 {
-    // Road edge points (top and bottom for perspective)
+
     float topLeftX = 350, topLeftY = 350;
     float topRightX = topLeftX + 75;
     float bottomLeftX = -150, bottomLeftY = 230;
     float bottomRightX = bottomLeftX + 150;
 
-    // ----- Draw road polygon -----
     glColor3f(0.2f, 0.2f, 0.2f); // dark gray road
     glBegin(GL_POLYGON);
     glVertex2f(topLeftX, topLeftY);
@@ -121,6 +144,93 @@ void drawRain()
     }
 }
 
+void initSnowflakes()
+{
+    for (int i = 0; i < MAX_SNOWFLAKES; i++)
+    {
+        snowflakes[i].x = rand() % windowWidth + 25;
+        snowflakes[i].y = rand() % windowHeight;
+        snowflakes[i].speed = (rand() % 50 + 50) / 100.0f; // 0.5 to 1.0
+        snowflakes[i].radius = (rand() % 4 + 1);           // 1 to 4
+    }
+}
+
+void updateSnowflakes()
+{
+    for (int i = 0; i < MAX_SNOWFLAKES; i++)
+    {
+        snowflakes[i].y -= snowflakes[i].speed;
+        if (snowflakes[i].y < 0)
+        {
+            snowflakes[i].y = windowHeight + rand() % 100;
+            snowflakes[i].x = rand() % windowWidth;
+        }
+    }
+    glutPostRedisplay();
+}
+
+void drawCircleSnow(float cx, float cy, float r)
+{
+    glBegin(GL_POLYGON);
+    for (int i = 0; i < 360; i++)
+    {
+        float angle = i * M_PI / 180.0f;
+        float x = cx + cos(angle) * r;
+        float y = cy + sin(angle) * r;
+        glVertex2f(x, y);
+    }
+    glEnd();
+}
+
+void initFireParticles()
+{
+    for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
+    {
+        fireParticles[i].x = rand() % windowWidth;
+        fireParticles[i].y = rand() % windowHeight + windowHeight;
+        fireParticles[i].speed = (rand() % 30 + 20) / 10.0f; // speed 2.0 to 5.0
+        // Set fire color: red-orange-yellow tones
+        fireParticles[i].r = 1.0f;
+        fireParticles[i].g = (rand() % 50) / 100.0f; // 0.0 to 0.5
+        fireParticles[i].b = 0.0f;
+    }
+}
+
+void updateFireParticles()
+{
+    if (!fireActive)
+        return;
+    for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
+    {
+        fireParticles[i].y -= fireParticles[i].speed;
+        if (fireParticles[i].y < 0)
+        {
+            fireParticles[i].x = rand() % windowWidth + 25;
+            fireParticles[i].y = windowHeight + rand() % 100;
+        }
+    }
+}
+
+void drawFireParticles()
+{
+    if (!fireActive)
+        return;
+    for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
+    {
+        glColor3f(fireParticles[i].r, fireParticles[i].g, fireParticles[i].b);
+        glBegin(GL_POLYGON);
+        float radius = 2.0f;
+        for (int j = 0; j < 360; j += 45)
+        {
+            float angle = j * M_PI / 180.0f;
+            float x = fireParticles[i].x + cos(angle) * radius;
+            float y = fireParticles[i].y + sin(angle) * radius;
+            glVertex2f(x, y);
+        }
+        glEnd();
+    }
+}
+
 void drawBackground()
 {
 
@@ -156,10 +266,9 @@ void drawBackground()
 
     // Mountains
     drawMountain1(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f); // Big brown mountain
+    drawCloudLarge(cloud3X, 450, 1.2f);                           // Cloud 3
     drawMountain2(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f); // Slightly smaller
     drawMountain3(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f); // Smallest, dark
-
-    drawCloudLarge(cloud3X, 450, 1.2f); // Cloud 3
 
     float bx = 190;
 
@@ -196,17 +305,19 @@ void drawBackground()
         drawSun(550, 550, 30); // Show sun
     }
 
-    drawCloudSmall(cloud1X, 550, 1.0f);  // Cloud 1
+    drawCloudSmall(cloud1X, 550, 1.0f); // Cloud 1
 
+    drawConcreteFloor();
     drawRoadWithLamps();
     drawMetroPillars();
     drawMetroTrack();
     drawRiverAndLake();
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
-    drawStalls(0, 0);
+    drawStalls(-75, 50);
     drawHouse(750, 300, 0.75, 0.5);
-
+    drawParkingLot(0, 0);
+    drawBus(200, 180, 0.7f, -6.0f);
 }
 
 void display()
@@ -216,7 +327,8 @@ void display()
     drawCar(150, 350);
     drawCar(100, 280);
 
-    drawBoat(640, 200, 0.7, 0.7, true);
+    drawBoat(640, 250, 0.6, 0.5, true, false);
+    drawBoat(690, 150, 0.8, 0.7, true);
 
     glutPostRedisplay();
 
@@ -234,7 +346,7 @@ void display()
 
     for (int i = 0; i < 8; i++)
     {
-        drawTree(590 + i * 30, 180 - i * 30, 0.50f);
+        drawTree(600 + i * 30, 180 - i * 30, 0.50f);
         // drawSmallTree1(580 + i * 20, 180 - i * 20, 0.1f, 0.4f, 0.1f, 30.0f, 30.0f);
     }
 
@@ -257,11 +369,27 @@ void display()
     drawFlag(425, 160, 3);
 
     drawPalmTree(750, 300, 0.8f);
-    drawSmallTree2(100, 50, 0.0f, 0.5f, 0.0f, 20.0f); // Green tree, scale = 20
-    drawSmallTree1(200, 60, 0.1f, 0.4f, 0.1f, 20.0f, 30.0f); // Darker, bigger tree
+
+    // drawSmallTree2(100, 50, 0.0f, 0.5f, 0.0f, 20.0f); // Green tree, scale = 20
+    // drawSmallTree1(200, 60, 0.1f, 0.4f, 0.1f, 20.0f, 30.0f); // Darker, bigger tree
 
     updateRain();
     drawRain();
+
+    drawFireParticles();
+
+    if (snowActive)
+    {
+        glColor3f(1.0f, 1.0f, 1.0f); // Snow color
+        for (int i = 0; i < MAX_SNOWFLAKES; i++)
+        {
+            drawCircleSnow(snowflakes[i].x, snowflakes[i].y, snowflakes[i].radius);
+        }
+    }
+
+    glutSwapBuffers();
+
+    // drawGrid(10.0f, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     glFlush();
 }
@@ -285,11 +413,27 @@ void keyboard(unsigned char key, int x, int y)
     {
         isNight = !isNight;
     }
+
+    if (key == 's' || key == 'S')
+    {
+        snowActive = !snowActive;
+    }
+
+    if (key == 'f' || key == 'F')
+    {
+        fireActive = !fireActive;
+        if (fireActive)
+            initFireParticles();
+    }
 }
 
 void update(int value)
 {
     updateRain();
+    updateSnowflakes();
+    updateFireParticles();
+
+
     cloud1X += cloudSpeed;
     cloud2X += cloudSpeed * 0.7f;
     cloud3X += cloudSpeed * 0.4f;
@@ -301,6 +445,8 @@ void update(int value)
         cloud2X = -150;
     if (cloud3X > WINDOW_WIDTH + 100)
         cloud3X = -200;
+    
+    
 
     glutPostRedisplay();
     glutTimerFunc(16, update, 0); // 16 ms -> roughly 60 FPS
@@ -316,6 +462,8 @@ int main(int argc, char **argv)
     init();
     glutKeyboardFunc(keyboard);
     glutDisplayFunc(display);
+
+    initSnowflakes();
 
     glutTimerFunc(25, update, 0);
     glutMainLoop();

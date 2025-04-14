@@ -39,12 +39,12 @@ void drawTree(float x, float y, float scale)
     glEnd();
 
     // Leafy crown (scaled positions and radii)
-    drawCircleRGBA(x,                  y + 110 * scale, 40 * scale, 60, 160, 60, 200);  // Medium green
-    drawCircleRGBA(x - 30 * scale,     y + 100 * scale, 35 * scale, 50, 150, 50, 180);  // Darker
-    drawCircleRGBA(x + 30 * scale,     y + 100 * scale, 35 * scale, 50, 150, 50, 180);
-    drawCircleRGBA(x - 25 * scale,     y + 130 * scale, 25 * scale, 70, 170, 70, 190);  // Lighter
-    drawCircleRGBA(x + 25 * scale,     y + 130 * scale, 25 * scale, 70, 170, 70, 190);
-    drawCircleRGBA(x,                  y + 150 * scale, 30 * scale, 80, 180, 80, 170);  // Lightest green
+    drawCircleRGBA(x,                  y + 110 * scale, 40 * scale, 60, 160, 60, 255);  // Medium green
+    drawCircleRGBA(x - 30 * scale,     y + 100 * scale, 35 * scale, 50, 150, 50, 255);  // Darker
+    drawCircleRGBA(x + 30 * scale,     y + 100 * scale, 35 * scale, 50, 150, 50, 255);
+    drawCircleRGBA(x - 25 * scale,     y + 130 * scale, 25 * scale, 70, 170, 70, 255);  // Lighter
+    drawCircleRGBA(x + 25 * scale,     y + 130 * scale, 25 * scale, 70, 170, 70, 255);
+    drawCircleRGBA(x,                  y + 150 * scale, 30 * scale, 80, 180, 80, 255);  // Lightest green
 }
 
 void drawCircle(float cx, float cy, float r)
