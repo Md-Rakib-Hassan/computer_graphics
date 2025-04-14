@@ -146,29 +146,16 @@ void drawBackground()
     glVertex2f(0, GROUND_TOP_Y);
     glEnd();
 
-    drawCircle(100, SKY_START_Y + 70, 20, 1.0f, 1.0f, 1.0f);
-    drawCircle(130, SKY_START_Y + 90, 25, 1.0f, 1.0f, 1.0f);
-    drawCircle(170, SKY_START_Y + 70, 20, 1.0f, 1.0f, 1.0f);
-
-    drawCircle(600, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
-    drawCircle(630, SKY_START_Y + 120, 23, 1.0f, 1.0f, 1.0f);
-    drawCircle(670, SKY_START_Y + 100, 18, 1.0f, 1.0f, 1.0f);
 
     drawCloudSmall(cloud1X, 550, 1.0f);   // Cloud 1
     drawCloudMedium(cloud2X, 500, 0.8f);  // Cloud 2
-    drawCloudLarge(cloud3X, 450, 1.2f);   // Cloud 3
-
-    //drawCircle(760, SKY_START_Y + 90, 30, 1.0f, 1.0f, 0.0f);
-
-    drawFilledTriangle(690, 350, 770, 510, 850, 350, 0.4f, 0.3f, 0.2f);
-    drawFilledTriangle(640, 350, 715, 460, 790, 350, 0.5f, 0.4f, 0.3f);
-
 
     // Mountains
     drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
     drawMountain(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
     drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
 
+    drawCloudLarge(cloud3X, 450, 1.2f);   // Cloud 3
 
 	float bx = 190;
 
