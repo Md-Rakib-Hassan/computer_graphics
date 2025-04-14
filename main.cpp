@@ -121,6 +121,13 @@ void drawRain() {
 
 void drawBackground()
 {
+
+    if (isNight) {
+        drawMoon(550, 550, 30);  // Show moon
+    } else {
+        drawSun(550, 550, 30);   // Show sun
+    }
+    
     if (isNight) {
         glClearColor(0.02f, 0.09f, 0.27f, 1.0f);  // Dark blueish night sky
     } else {
@@ -151,9 +158,9 @@ void drawBackground()
     drawCloudMedium(cloud2X, 500, 0.8f);  // Cloud 2
 
     // Mountains
-    drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
-    drawMountain(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
-    drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
+    drawMountain1(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
+    drawMountain2(680, GROUND_TOP_Y, 170, 140, 0.5f, 0.4f, 0.3f);  // Slightly smaller
+    drawMountain3(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
 
     drawCloudLarge(cloud3X, 450, 1.2f);   // Cloud 3
 
@@ -192,11 +199,6 @@ void drawBackground()
     drawPondInfrontOfSriti();
     drawStalls(0, 0);
     drawHouse(750, 300, 0.75, 0.5);
-    if (isNight) {
-        drawMoon(550, 550, 30);  // Show moon
-    } else {
-        drawSun(550, 550, 30);   // Show sun
-    }
 
 }
 
