@@ -1,4 +1,7 @@
+#include <GL/glut.h>
+#include <math.h>
 #include "../include/draw.h"
+
 void drawStreetLamp(float x1, float y1, float height)
 {
     drawLine(x1, y1, x1, y1 + height);
