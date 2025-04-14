@@ -20,5 +20,7 @@ void drawFlower(float cx, float cy);
 void drawSritiShoudho();
 void drawTree(float x, float y);
 void drawCar(float x, float y);
+void drawMountain(float x, float baseY, float width, float height, float r, float g, float b);
+void drawFlag(float offsetX, float offsetY, float scale);
 
 #endif
