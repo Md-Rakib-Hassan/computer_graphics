@@ -163,14 +163,6 @@ void drawBackground()
     drawFilledTriangle(690, 350, 770, 510, 850, 350, 0.4f, 0.3f, 0.2f);
     drawFilledTriangle(640, 350, 715, 460, 790, 350, 0.5f, 0.4f, 0.3f);
 
-    float bx = 75;
-    for (int i = 0; i < 6; ++i)
-    {
-        float bw = 30 + rand() % 20;
-        float bh = 60 + rand() % 100;
-        drawBuilding(bx, bw, bh);
-        bx += bw - 10 + rand() % 10;
-    }
 
     // Mountains
     drawMountain(600, GROUND_TOP_Y, 200, 160, 0.4f, 0.3f, 0.2f);  // Big brown mountain
@@ -178,7 +170,7 @@ void drawBackground()
     drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
 
 
-//	float bx = 190;
+	float bx = 190;
 
 	// Building 1
 	float bw1 = 30;
