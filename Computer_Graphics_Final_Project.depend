@@ -6,10 +6,10 @@
 1744562739 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\cg_project\computer_graphics\functions\drawhouse.cpp
 	<GL/glut.h>
 
-1740286610 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glut.h
+1632060799 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glut.h
 	"freeglut_std.h"
 
-1740286610 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\freeglut_std.h
+1632060797 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\freeglut_std.h
 	<windows.h>
 	<EGL/egl.h>
 	<GLES/gl.h>
@@ -941,13 +941,16 @@
 1744575031 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawboat.cpp
 	<GL/glut.h>
 
-1744575032 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawbuilding.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawbuilding.cpp
 	<GL/glut.h>
 	<math.h>
 
-1744575034 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcar.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcar.cpp
+	<GL/glut.h>
+	<math.h>
+	"../include/draw.h"
 
-1744632450 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcloud.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcloud.cpp
 	<GL/glut.h>
 	<cmath>
 
@@ -958,9 +961,9 @@
 	<GL/glut.h>
 	<math.h>
 
-1744575043 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawmoon.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawmoon.cpp
 	<GL/glut.h>
-	<cmath>
+	<math.h>
 
 1744575045 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawplan.cpp
 
@@ -968,7 +971,7 @@
 	<GL/glut.h>
 	<math.h>
 
-1744575048 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawstalls.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawstalls.cpp
 	<GL/glut.h>
 	<math.h>
 
@@ -976,22 +979,25 @@
 	<GL/glut.h>
 	<math.h>
 
-1744575052 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawsun.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawsun.cpp
 	<GL/glut.h>
 	<math.h>
 
-1744604080 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawtree.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawtree.cpp
+	<GL/glut.h>
+	<math.h>
+	"..\include\draw.h"
 
-1744632985 source:c:\users\lenovo\documents\xddd\computer_graphics\main.cpp
+1744633744 source:c:\users\lenovo\documents\xddd\computer_graphics\main.cpp
 	<GL/glut.h>
 	<math.h>
 	<stdlib.h>
 	<time.h>
 	"include/draw.h"
 
-1744632229 c:\users\lenovo\documents\xddd\computer_graphics\include\draw.h
+1744633567 c:\users\lenovo\documents\xddd\computer_graphics\include\draw.h
 
-1744575035 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcircle.cpp
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawcircle.cpp
 	<GL/glut.h>
 	<math.h>
 
@@ -1109,4 +1115,22 @@
 1744625930 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\computer_graphics\functions\drawflag.cpp
 	<GL/glut.h>
 	<math.h>
+
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawflag.cpp
+	<GL/glut.h>
+	<math.h>
+
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawflower.cpp
+	<GL/glut.h>
+	<math.h>
+	"..\include\draw.h"
+
+1744633567 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawmountain.cpp
+	<GL/glut.h>
+	<math.h>
+
+1744633623 source:c:\users\lenovo\documents\xddd\computer_graphics\functions\drawsritishoudho.cpp
+	<GL/glut.h>
+	<math.h>
+	"..\include\draw.h"
 

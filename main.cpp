@@ -178,26 +178,26 @@ void drawBackground()
     drawMountain(740, GROUND_TOP_Y, 130, 100, 0.3f, 0.2f, 0.1f);  // Smallest, dark
 
 
-	float bx = 190;
+//	float bx = 190;
 
 	// Building 1
 	float bw1 = 30;
 	float bh1 = 70;
 	drawBuilding(bx, bw1, bh1);
 	bx += bw1;
-	
+
 	// Building 2
 	float bw2 = 40;
 	float bh2 = 90;
 	drawBuilding(bx, bw2, bh2);
 	bx += bw2;
-	
+
 	// Building 3
 	float bw3 = 25;
 	float bh3 = 50;
 	drawBuilding(bx, bw3, bh3);
 	bx += bw3;
-	
+
 	// Building 4
 	float bw4 = 35;
 	float bh4 = 100;
@@ -244,11 +244,9 @@ void display()
 
 
 
-    drawMemorial(250,262,1,1.6);
-
     if(showMemorial) {
         drawMemorial(260,262,1,1.8);
-    } 
+    }
     else {
         drawSritiShoudho();
     }
@@ -268,7 +266,7 @@ void display()
         {440, 225},
         {450, 230}
     };
-    
+
     for (int i = 0; i < 10; ++i)
     {
         drawFlower(flowerPositions[i][0]+20, flowerPositions[i][1]+25);
@@ -288,7 +286,7 @@ void keyboard(unsigned char key, int x, int y)
     if (key == 'r' || key == 'R')
     {
         if (rainActive)
-            rainActive = 0; 
+            rainActive = 0;
         else
             initRain();
     }
@@ -302,7 +300,7 @@ void keyboard(unsigned char key, int x, int y)
     {
         isNight = !isNight;
     }
-
+}
 
 void update(int value) {
     updateRain();

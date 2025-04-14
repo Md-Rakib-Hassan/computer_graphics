@@ -1,6 +1,6 @@
 #include <GL/glut.h>
 #include <math.h>
-#include "C:\Users\Ridwan Sharif\Documents\University_space\L4T2\Computer Graphics\computer_graphics\include\draw.h"
+#include "..\include\draw.h"
 
 void drawSritiShoudho()
 {
