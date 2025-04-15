@@ -30,13 +30,6 @@ vx(20, 430);
 vx(30, 430);
 vx(30, 440);
 glEnd();
-// backline
-glLineWidth(8);
-glBegin(GL_LINES);
-glColor3ub(166, 214, 252);
-glVertex2f(80, 440);
-glVertex2f(110, 440);
-glEnd();
 // fan
 glBegin(GL_POLYGON);
 glColor3ub(35, 50, 64);
