@@ -1232,7 +1232,7 @@
 	<math.h>
 	"../include/draw.h"
 
-1744698761 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\project\computer_graphics\main.cpp
+1744700024 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\project\computer_graphics\main.cpp
 	<GL/glut.h>
 	<math.h>
 	<stdlib.h>
@@ -1326,6 +1326,6 @@
 	<GL/glut.h>
 	"../include/draw.h"
 
-1744696126 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\project\computer_graphics\functions\drawminiplan.cpp
+1744699498 source:c:\users\ridwan sharif\documents\university_space\l4t2\computer graphics\project\computer_graphics\functions\drawminiplan.cpp
 	<GL/glut.h>
 

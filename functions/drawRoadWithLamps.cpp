@@ -16,12 +16,5 @@ void drawRoadWithLamps()
     glVertex2f(bottomLeftX, bottomLeftY);
     glEnd();
 
-    // ----- Draw street lamps -----
-    for (float i = 0; i <= 1.0f; i += 0.1f)
-    {
-        float x = topLeftX * (1 - i) + bottomLeftX * i;
-        float y = topLeftY * (1 - i) + bottomLeftY * i;
-        drawStreetLamp(x + 5, y, 30);
-    }
     glEnd();
 }

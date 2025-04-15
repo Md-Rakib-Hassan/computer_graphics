@@ -201,8 +201,6 @@ void drawBackground()
     glVertex2f(0, GROUND_TOP_Y);
     glEnd();
 
-    drawRoadWithLamps();
-
     glColor3f(0.2f, 0.2f, 0.2f);
     glBegin(GL_POLYGON);
     glVertex2f(0, GROUND_TOP_Y - 20);
@@ -245,6 +243,23 @@ void drawBackground()
     drawBuilding(bx, bw4, bh4);
     bx += bw4;
 
+    drawCar(150, 350);
+
+    drawConcreteFloor();
+
+    drawRoadWithLamps();
+
+    drawMetro(60,430,200,120);
+
+    drawMainBuilding(0,278,.6,.8);
+
+    for (float i = 0; i <= 1.0f; i += 0.1f)
+    {
+        float x = 350 * (1 - i) + -150 * i;
+        float y = 350 * (1 - i) + 230 * i;
+        drawStreetLamp(x + 5, y, 30);
+    }
+
     if (isNight)
     {
         drawMoon(550, 550, 30); // Show moon
@@ -255,11 +270,6 @@ void drawBackground()
     }
 
     drawCloudSmall(cloud1X, 550, 1.0f); // Cloud 1
-    drawCar(150, 350);
-    drawConcreteFloor();
-    drawMainBuilding(0,278,.6,.8);
-    //drawMetroPillars();
-    //drawMetroTrack();
     drawRiverAndLake();
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
@@ -276,7 +286,6 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     drawBackground();
 
-    drawMetro(60,430,200,120);
 
     drawCar(100, 280);
 
