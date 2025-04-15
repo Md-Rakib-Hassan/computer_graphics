@@ -25,6 +25,9 @@ int fireActive = 0;
 float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
 float cloudSpeed = 0.5f;
 
+float planeX = 150.0f;
+float planeY = 100.0f;
+
 typedef struct
 {
     float x, y;
@@ -39,8 +42,6 @@ struct Snowflake
 };
 
 Snowflake snowflakes[MAX_SNOWFLAKES];
-int windowWidth = 800;
-int windowHeight = 600;
 
 Raindrop raindrops[MAX_RAINDROPS];
 int rainActive = 0;
@@ -77,7 +78,6 @@ void updateRain()
         raindrops[i].y -= raindrops[i].speed; // Move raindrop down
         if (raindrops[i].y < 0)
         {
-            // Reset raindrop to the top of the screen with a new random x position
             raindrops[i].x = rand() % WINDOW_WIDTH;
             raindrops[i].y = WINDOW_HEIGHT + rand() % 100;
             raindrops[i].speed = 1 + rand() % 4; // New random speed
@@ -104,8 +104,8 @@ void initSnowflakes()
 {
     for (int i = 0; i < MAX_SNOWFLAKES; i++)
     {
-        snowflakes[i].x = rand() % windowWidth + 25;
-        snowflakes[i].y = rand() % windowHeight;
+        snowflakes[i].x = rand() % WINDOW_WIDTH;
+        snowflakes[i].y = rand() % WINDOW_HEIGHT;
         snowflakes[i].speed = (rand() % 50 + 50) / 100.0f; // 0.5 to 1.0
         snowflakes[i].radius = (rand() % 4 + 1);           // 1 to 4
     }
@@ -118,8 +118,8 @@ void updateSnowflakes()
         snowflakes[i].y -= snowflakes[i].speed;
         if (snowflakes[i].y < 0)
         {
-            snowflakes[i].y = windowHeight + rand() % 100;
-            snowflakes[i].x = rand() % windowWidth;
+            snowflakes[i].y = WINDOW_HEIGHT + rand() % 100;
+            snowflakes[i].x = rand() % WINDOW_WIDTH;
         }
     }
     glutPostRedisplay();
@@ -131,8 +131,8 @@ void initFireParticles()
 {
     for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
     {
-        fireParticles[i].x = rand() % windowWidth;
-        fireParticles[i].y = rand() % windowHeight + windowHeight;
+        fireParticles[i].x = rand() % WINDOW_WIDTH;
+        fireParticles[i].y = rand() % WINDOW_HEIGHT + WINDOW_HEIGHT;
         fireParticles[i].speed = (rand() % 30 + 20) / 10.0f; // speed 2.0 to 5.0
         // Set fire color: red-orange-yellow tones
         fireParticles[i].r = 1.0f;
@@ -150,8 +150,8 @@ void updateFireParticles()
         fireParticles[i].y -= fireParticles[i].speed;
         if (fireParticles[i].y < 0)
         {
-            fireParticles[i].x = rand() % windowWidth + 25;
-            fireParticles[i].y = windowHeight + rand() % 100;
+            fireParticles[i].x = rand() % WINDOW_WIDTH;
+            fireParticles[i].y = WINDOW_HEIGHT + rand() % 100;
         }
     }
 }
@@ -198,6 +198,8 @@ void drawBackground()
     glVertex2f(WINDOW_WIDTH, GROUND_TOP_Y);
     glVertex2f(0, GROUND_TOP_Y);
     glEnd();
+
+    drawRoadWithLamps();
 
     glColor3f(0.2f, 0.2f, 0.2f);
     glBegin(GL_POLYGON);
@@ -252,10 +254,8 @@ void drawBackground()
 
     drawCloudSmall(cloud1X, 550, 1.0f); // Cloud 1
     drawCar(150, 350);
-    drawMetro(60,430,200,120);
     drawConcreteFloor();
     drawMainBuilding(0,278,.6,.8);
-    drawRoadWithLamps();
     //drawMetroPillars();
     //drawMetroTrack();
     drawRiverAndLake();
@@ -270,14 +270,18 @@ void drawBackground()
 
 
 void display(){
+
     glClear(GL_COLOR_BUFFER_BIT);
     drawBackground();
 
+    drawMetro(60,430,200,120);
 
     drawCar(100, 280);
 
     drawBoat(640, 250, 0.6, 0.5, true, false);
     drawBoat(690, 150, 0.8, 0.7, true);
+
+    drawMiniPlan(planeX, planeY, 1.0f, 1.0f);
 
     glutPostRedisplay();
 
@@ -292,11 +296,10 @@ void display(){
 
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
-drawMiniPlan(150,100);
+
     for (int i = 0; i < 8; i++)
     {
         drawTree(600 + i * 30, 180 - i * 30, 0.50f);
-        // drawSmallTree1(580 + i * 20, 180 - i * 20, 0.1f, 0.4f, 0.1f, 30.0f, 30.0f);
     }
 
     float flowerPositions[10][2] = {
@@ -318,9 +321,6 @@ drawMiniPlan(150,100);
     drawFlag(425, 160, 3);
 
     drawPalmTree(750, 300, 0.8f);
-
-    // drawSmallTree2(100, 50, 0.0f, 0.5f, 0.0f, 20.0f); // Green tree, scale = 20
-    // drawSmallTree1(200, 60, 0.1f, 0.4f, 0.1f, 20.0f, 30.0f); // Darker, bigger tree
 
     updateRain();
     drawRain();
@@ -379,6 +379,35 @@ void keyboard(unsigned char key, int x, int y)
     }
 }
 
+void specialKeys(int key, int x, int y)
+{
+    float moveAmount = 5.0f;
+
+    switch (key)
+    {
+    case GLUT_KEY_LEFT:
+        planeX -= moveAmount;
+        break;
+    case GLUT_KEY_RIGHT:
+        planeX += moveAmount;
+        break;
+    case GLUT_KEY_UP:
+        planeY += moveAmount;
+        break;
+    case GLUT_KEY_DOWN:
+        planeY -= moveAmount;
+        break;
+    }
+
+    if (planeX < 0) planeX = 0;
+    if (planeX > WINDOW_WIDTH) planeX = WINDOW_WIDTH;
+    if (planeY < 0) planeY = 0;
+    if (planeY > GROUND_TOP_Y) planeY = GROUND_TOP_Y;
+
+    glutPostRedisplay(); // Redraw the scene
+}
+
+
 void update(int value)
 {
     updateRain();
@@ -412,7 +441,9 @@ int main(int argc, char **argv)
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Sriti Shoudho");
     init();
+
     glutKeyboardFunc(keyboard);
+    glutSpecialFunc(specialKeys);
     glutDisplayFunc(display);
 
     initSnowflakes();
