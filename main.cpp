@@ -27,6 +27,8 @@ float cloudSpeed = 0.5f;
 
 float planeX = 150.0f;
 float planeY = 100.0f;
+int planeFacingLeft = 1;
+
 
 typedef struct
 {
@@ -281,7 +283,9 @@ void display(){
     drawBoat(640, 250, 0.6, 0.5, true, false);
     drawBoat(690, 150, 0.8, 0.7, true);
 
-    drawMiniPlan(planeX, planeY, 1.0f, 1.0f);
+    float scaleX = planeFacingLeft ? 1.0f : -1.0f;
+    drawMiniPlan(planeX, planeY, scaleX, 1.0f);
+
 
     glutPostRedisplay();
 
@@ -387,9 +391,11 @@ void specialKeys(int key, int x, int y)
     {
     case GLUT_KEY_LEFT:
         planeX -= moveAmount;
+        planeFacingLeft = 1;
         break;
     case GLUT_KEY_RIGHT:
         planeX += moveAmount;
+        planeFacingLeft = 0;
         break;
     case GLUT_KEY_UP:
         planeY += moveAmount;
