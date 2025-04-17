@@ -8,21 +8,15 @@
 #define WINDOW_HEIGHT 600
 #define SKY_START_Y 350
 #define GROUND_TOP_Y SKY_START_Y
-#define MAX_FIRE_PARTICLES 800
 
-struct FireParticle
-{
-    float x, y;
-    float speed;
-    float r, g, b;
-};
+
+
 
 bool rainActive = false;
 bool snowActive = false;
-
-FireParticle fireParticles[MAX_FIRE_PARTICLES];
-int fireActive = 0;
-
+bool fireActive = false;
+bool showMemorial = true;
+bool isNight = false;
 
 float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
 float cloudSpeed = 0.5f;
@@ -33,15 +27,6 @@ int planeFacingLeft = 1;
 
 
 
-
-
-
-
-
-
-bool showMemorial = true;
-bool isNight = false;
-
 void init()
 {
     glClearColor(0.53f, 0.81f, 0.98f, 1.0f);
@@ -51,59 +36,6 @@ void init()
     srand(time(0));
 }
 
-
-
-
-
-
-void initFireParticles()
-{
-    for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
-    {
-        fireParticles[i].x = rand() % WINDOW_WIDTH;
-        fireParticles[i].y = rand() % WINDOW_HEIGHT + WINDOW_HEIGHT;
-        fireParticles[i].speed = (rand() % 30 + 20) / 10.0f; // speed 2.0 to 5.0
-        // Set fire color: red-orange-yellow tones
-        fireParticles[i].r = 1.0f;
-        fireParticles[i].g = (rand() % 50) / 100.0f; // 0.0 to 0.5
-        fireParticles[i].b = 0.0f;
-    }
-}
-
-void updateFireParticles()
-{
-    if (!fireActive)
-        return;
-    for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
-    {
-        fireParticles[i].y -= fireParticles[i].speed;
-        if (fireParticles[i].y < 0)
-        {
-            fireParticles[i].x = rand() % WINDOW_WIDTH;
-            fireParticles[i].y = WINDOW_HEIGHT + rand() % 100;
-        }
-    }
-}
-
-void drawFireParticles()
-{
-    if (!fireActive)
-        return;
-    for (int i = 0; i < MAX_FIRE_PARTICLES; i++)
-    {
-        glColor3f(fireParticles[i].r, fireParticles[i].g, fireParticles[i].b);
-        glBegin(GL_POLYGON);
-        float radius = 2.0f;
-        for (int j = 0; j < 360; j += 45)
-        {
-            float angle = j * M_PI / 180.0f;
-            float x = fireParticles[i].x + cos(angle) * radius;
-            float y = fireParticles[i].y + sin(angle) * radius;
-            glVertex2f(x, y);
-        }
-        glEnd();
-    }
-}
 
 void drawBackground()
 {
@@ -265,7 +197,7 @@ void display(){
     updateRain();
     drawRain(rainActive);
 
-    drawFireParticles();
+    drawFireParticles(fireActive);
 
     drawSnow(snowActive);
 
@@ -344,7 +276,7 @@ void update(int value)
 {
     updateRain();
     updateSnowflakes();
-    updateFireParticles();
+    updateFireParticles(fireActive);
 
 
     cloud1X += cloudSpeed;

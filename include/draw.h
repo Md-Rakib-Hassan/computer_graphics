@@ -49,4 +49,7 @@ void drawRain(bool &rainActive);
 void drawSnow(bool &snowActive);
 void initSnowflakes();
 void updateSnowflakes();
+void drawFireParticles(bool &fireActive);
+void initFireParticles();
+void updateFireParticles(bool &fireActive);
 #endif
