@@ -8,8 +8,6 @@
 #define WINDOW_HEIGHT 600
 #define SKY_START_Y 350
 #define GROUND_TOP_Y SKY_START_Y
-#define MAX_RAINDROPS 500
-#define MAX_SNOWFLAKES 1000
 #define MAX_FIRE_PARTICLES 800
 
 struct FireParticle
@@ -19,8 +17,12 @@ struct FireParticle
     float r, g, b;
 };
 
+bool rainActive = false;
+bool snowActive = false;
+
 FireParticle fireParticles[MAX_FIRE_PARTICLES];
 int fireActive = 0;
+
 
 float cloud1X = 0.0f, cloud2X = -100.0f, cloud3X = 200.0f;
 float cloudSpeed = 0.5f;
@@ -30,24 +32,12 @@ float planeY = 100.0f;
 int planeFacingLeft = 1;
 
 
-typedef struct
-{
-    float x, y;
-    float speed;
-} Raindrop;
 
-struct Snowflake
-{
-    float x, y;
-    float speed;
-    float radius;
-};
 
-Snowflake snowflakes[MAX_SNOWFLAKES];
 
-Raindrop raindrops[MAX_RAINDROPS];
-int rainActive = 0;
-int snowActive = 0;
+
+
+
 
 bool showMemorial = true;
 bool isNight = false;
@@ -62,70 +52,7 @@ void init()
 }
 
 
-void initRain()
-{
-    for (int i = 0; i < MAX_RAINDROPS; i++)
-    {
-        raindrops[i].x = rand() % WINDOW_WIDTH;
-        raindrops[i].y = rand() % WINDOW_HEIGHT;
-        raindrops[i].speed = 1 + rand() % 4; // Random speed between 1 and 4
-    }
-    rainActive = 1; // Start the rain
-}
 
-void updateRain()
-{
-    for (int i = 0; i < MAX_RAINDROPS; i++)
-    {
-        raindrops[i].y -= raindrops[i].speed; // Move raindrop down
-        if (raindrops[i].y < 0)
-        {
-            raindrops[i].x = rand() % WINDOW_WIDTH;
-            raindrops[i].y = WINDOW_HEIGHT + rand() % 100;
-            raindrops[i].speed = 1 + rand() % 4; // New random speed
-        }
-    }
-}
-
-void drawRain()
-{
-    if (rainActive)
-    {
-        glColor3f(0.0f, 0.0f, 1.0f); // Blue color for raindrops
-        for (int i = 0; i < MAX_RAINDROPS; i++)
-        {
-            glBegin(GL_LINES);
-            glVertex2f(raindrops[i].x, raindrops[i].y);
-            glVertex2f(raindrops[i].x, raindrops[i].y - 10); // Line for raindrop
-            glEnd();
-        }
-    }
-}
-
-void initSnowflakes()
-{
-    for (int i = 0; i < MAX_SNOWFLAKES; i++)
-    {
-        snowflakes[i].x = rand() % WINDOW_WIDTH;
-        snowflakes[i].y = rand() % WINDOW_HEIGHT;
-        snowflakes[i].speed = (rand() % 50 + 50) / 100.0f; // 0.5 to 1.0
-        snowflakes[i].radius = (rand() % 4 + 1);           // 1 to 4
-    }
-}
-
-void updateSnowflakes()
-{
-    for (int i = 0; i < MAX_SNOWFLAKES; i++)
-    {
-        snowflakes[i].y -= snowflakes[i].speed;
-        if (snowflakes[i].y < 0)
-        {
-            snowflakes[i].y = WINDOW_HEIGHT + rand() % 100;
-            snowflakes[i].x = rand() % WINDOW_WIDTH;
-        }
-    }
-    glutPostRedisplay();
-}
 
 
 
@@ -336,21 +263,11 @@ void display(){
     drawPalmTree(750, 300, 0.8f);
 
     updateRain();
-    drawRain();
+    drawRain(rainActive);
 
     drawFireParticles();
 
-    if (snowActive)
-    {
-        glColor3f(1.0f, 1.0f, 1.0f); // Snow color
-        for (int i = 0; i < MAX_SNOWFLAKES; i++)
-        {
-            drawCircleSnow(snowflakes[i].x, snowflakes[i].y, snowflakes[i].radius);
-        }
-    }
-
-
-
+    drawSnow(snowActive);
 
     glutSwapBuffers();
 
@@ -364,9 +281,9 @@ void keyboard(unsigned char key, int x, int y)
     if (key == 'r' || key == 'R')
     {
         if (rainActive)
-            rainActive = 0;
+            rainActive = false;
         else
-            initRain();
+            initRain(rainActive);
     }
 
     if (key == 'm' || key == 'M')

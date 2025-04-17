@@ -40,8 +40,13 @@ void updateTrain(int value);
 void drawMetro(int offsetX = 0, int offsetY = 0, float scaleX = 5.0f, float scaleY = 5.0f);
 void updateTrain(int value);
 void drawRoadWithLamps();
-void drawCircleSnow(float cx, float cy, float r);
 void drawMetroTrack();
 void drawMainBuilding(int offsetX = 0, int offsetY = 0, float scaleX = 1.0f, float scaleY = 1.0f);
 void drawMiniPlan(float offsetX = 0.0f, float offsetY = 0.0f, float scaleX = 1.0f, float scaleY = 1.0f);
+void initRain(bool &rainActive);
+void updateRain();
+void drawRain(bool &rainActive);
+void drawSnow(bool &snowActive);
+void initSnowflakes();
+void updateSnowflakes();
 #endif
