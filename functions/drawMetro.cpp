@@ -3,7 +3,7 @@
 
 
 float blockX = 0.0f;          // X position of the block
-float blockSpeed = 0.5f;      // Speed of movement
+float blockSpeed = 1;      // Speed of movement
 
 void drawMetro(int offsetX = 0, int offsetY = 0, float scaleX = 5.0f, float scaleY = 5.0f) {
     auto vx = [&](float x, float y) {
