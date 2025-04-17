@@ -81,3 +81,11 @@ void drawSmallTree2(float cx, float cy, float r, float g, float b, float scale)
     glVertex2f(cx - scale * 0.15f, cy + scale * 0.5f);
     glEnd();
 }
+
+
+void drawTreesRightSide(){
+    for (int i = 0; i < 8; i++)
+    {
+        drawTree(600 + i * 30, 180 - i * 30, 0.50f);
+    }
+}

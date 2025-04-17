@@ -68,27 +68,9 @@ void display(){
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
 
-    for (int i = 0; i < 8; i++)
-    {
-        drawTree(600 + i * 30, 180 - i * 30, 0.50f);
-    }
+    drawTreesRightSide();
 
-    float flowerPositions[10][2] = {
-        {360, 230},
-        {370, 225},
-        {380, 235},
-        {390, 220},
-        {400, 230},
-        {410, 218},
-        {420, 232},
-        {430, 228},
-        {440, 225},
-        {450, 230}};
-
-    for (int i = 0; i < 10; ++i)
-    {
-        drawFlower(flowerPositions[i][0] + 20, flowerPositions[i][1] + 25);
-    }
+    drawFlowersBeforeMemorial();
     drawFlag(425, 160, 3);
 
     drawPalmTree(750, 300, 0.8f);

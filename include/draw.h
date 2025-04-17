@@ -54,4 +54,6 @@ void initFireParticles();
 void updateFireParticles(bool &fireActive);
 void controlKeyboard(unsigned char key, bool &rainActive, bool &showMemorial, bool &isNight, bool &snowActive, bool &fireActive);
 void drawBackground(int &GROUND_TOP_Y, bool &isNight, float &cloud1X, float &cloud2X, float &cloud3X);
+void drawTreesRightSide();
+void drawFlowersBeforeMemorial();
 #endif
