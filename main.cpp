@@ -208,38 +208,7 @@ void display(){
     glFlush();
 }
 
-void keyboard(unsigned char key, int x, int y)
-{
-    if (key == 'r' || key == 'R')
-    {
-        if (rainActive)
-            rainActive = false;
-        else
-            initRain(rainActive);
-    }
 
-    if (key == 'm' || key == 'M')
-    {
-        showMemorial = !showMemorial;
-    }
-
-    if (key == 'n' || key == 'N')
-    {
-        isNight = !isNight;
-    }
-
-    if (key == 's' || key == 'S')
-    {
-        snowActive = !snowActive;
-    }
-
-    if (key == 'f' || key == 'F')
-    {
-        fireActive = !fireActive;
-        if (fireActive)
-            initFireParticles();
-    }
-}
 
 void specialKeys(int key, int x, int y)
 {
@@ -295,6 +264,10 @@ void update(int value)
 
     glutPostRedisplay();
     glutTimerFunc(16, update, 0); // 16 ms -> roughly 60 FPS
+}
+
+void keyboard(unsigned char key, int x, int y){
+    controlKeyboard(key, rainActive, showMemorial, isNight, snowActive, fireActive);
 }
 
 int main(int argc, char **argv)

@@ -52,4 +52,5 @@ void updateSnowflakes();
 void drawFireParticles(bool &fireActive);
 void initFireParticles();
 void updateFireParticles(bool &fireActive);
+void controlKeyboard(unsigned char key, bool &rainActive, bool &showMemorial, bool &isNight, bool &snowActive, bool &fireActive);
 #endif
