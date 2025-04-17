@@ -47,7 +47,6 @@
 		<Unit filename="functions/drawBus.cpp" />
 		<Unit filename="functions/drawCar.cpp" />
 		<Unit filename="functions/drawCircle.cpp" />
-		<Unit filename="functions/drawCircleSnow.cpp" />
 		<Unit filename="functions/drawCloud.cpp" />
 		<Unit filename="functions/drawConcreteFloor.cpp" />
 		<Unit filename="functions/drawFilledTriangle.cpp" />
