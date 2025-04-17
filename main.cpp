@@ -9,9 +9,6 @@
 #define SKY_START_Y 350
 #define GROUND_TOP_Y SKY_START_Y
 
-
-
-
 bool rainActive = false;
 bool snowActive = false;
 bool fireActive = false;
@@ -25,8 +22,6 @@ float planeX = 150.0f;
 float planeY = 100.0f;
 int planeFacingLeft = 1;
 
-
-
 void init()
 {
     glClearColor(0.53f, 0.81f, 0.98f, 1.0f);
@@ -36,23 +31,17 @@ void init()
     srand(time(0));
 }
 
-
-
-void display(){
+void display()
+{
 
     glClear(GL_COLOR_BUFFER_BIT);
     int groundTopY = GROUND_TOP_Y;
-    drawBackground(groundTopY, isNight,cloud1X,cloud2X,cloud3X);
-
-
+    drawBackground(groundTopY, isNight, cloud1X, cloud2X, cloud3X);
     drawCar(100, 280);
-
     drawBoat(640, 250, 0.6, 0.5, true, false);
     drawBoat(690, 150, 0.8, 0.7, true);
-
     float scaleX = planeFacingLeft ? 1.0f : -1.0f;
     drawMiniPlan(planeX, planeY, scaleX, 1.0f);
-
 
     glutPostRedisplay();
 
@@ -67,29 +56,17 @@ void display(){
 
     drawStepsInFrontOfSritiShoudho();
     drawPondInfrontOfSriti();
-
     drawTreesRightSide();
-
     drawFlowersBeforeMemorial();
     drawFlag(425, 160, 3);
-
     drawPalmTree(750, 300, 0.8f);
-
     updateRain();
     drawRain(rainActive);
-
     drawFireParticles(fireActive);
-
     drawSnow(snowActive);
-
     glutSwapBuffers();
-
-    // drawGrid(10.0f, WINDOW_WIDTH, WINDOW_HEIGHT);
-
     glFlush();
 }
-
-
 
 void specialKeys(int key, int x, int y)
 {
@@ -113,21 +90,23 @@ void specialKeys(int key, int x, int y)
         break;
     }
 
-    if (planeX < 0) planeX = 0;
-    if (planeX > WINDOW_WIDTH) planeX = WINDOW_WIDTH;
-    if (planeY < 0) planeY = 0;
-    if (planeY > GROUND_TOP_Y) planeY = GROUND_TOP_Y;
+    if (planeX < 0)
+        planeX = 0;
+    if (planeX > WINDOW_WIDTH)
+        planeX = WINDOW_WIDTH;
+    if (planeY < 0)
+        planeY = 0;
+    if (planeY > GROUND_TOP_Y)
+        planeY = GROUND_TOP_Y;
 
     glutPostRedisplay(); // Redraw the scene
 }
-
 
 void update(int value)
 {
     updateRain();
     updateSnowflakes();
     updateFireParticles(fireActive);
-
 
     cloud1X += cloudSpeed;
     cloud2X += cloudSpeed * 0.7f;
@@ -141,13 +120,12 @@ void update(int value)
     if (cloud3X > WINDOW_WIDTH + 100)
         cloud3X = -200;
 
-
-
     glutPostRedisplay();
     glutTimerFunc(16, update, 0); // 16 ms -> roughly 60 FPS
 }
 
-void keyboard(unsigned char key, int x, int y){
+void keyboard(unsigned char key, int x, int y)
+{
     controlKeyboard(key, rainActive, showMemorial, isNight, snowActive, fireActive);
 }
 
