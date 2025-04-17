@@ -9,7 +9,7 @@ This is a **Computer Graphics final project** using **OpenGL (GLUT)** in C++. Th
 ```
 computer_graphics/
 ├── Computer_Graphics_Final_Project.cbp   # Code::Blocks project file
-├── main.cpp                              # Main application 
+├── main.cpp                              # Main application
 ├── include/
 │   └── draw.h                            # Header file for drawing functions
 ├── functions/                            # Modular OpenGL drawing and logic functions
@@ -37,14 +37,19 @@ computer_graphics/
 
 ### ✅ With Code::Blocks
 
-1. Open the `Computer_Graphics_Final_Project.cbp` file.
-2. Make sure to link OpenGL libraries:
+1. Open the `Computer_Graphics_Final_Project.cbp` file using Code::Blocks.
+2. If source files are not added yet:
+   - Right-click on Project File **"Computer_Graphics_Final_Project"** → `Add files recursively...`
+   - Select the `functions/` folder and add them.
+   - Select the `include/` folder and add them.
+
+3. Make sure to link OpenGL libraries:
    ```
    -lglu32
    -lopengl32
    -lfreeglut
    ```
-3. Press `F9` to build and run the project.
+4. Press `F9` to **Build & Run** the project.
 
 ### ✅ From Terminal
 
@@ -63,8 +68,6 @@ graphics_app.exe
 ---
 
 ## ⌨️ Keyboard Controls
-
-These are the keys used to interact with the animation:
 
 | Key       | Action                         |
 |-----------|--------------------------------|
